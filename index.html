@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<title>Jennifer Klette – Arbeitsproben</title>
+<title>Jennifer Klette – Portfolio</title>
 <style>
 :root{--bg:#eef0f3;--ink:#15171b;--mute:#6b7078;box-sizing:border-box;color-scheme:light}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 #sp{height:800vh}
-canvas#gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;display:block}
-#brand{position:fixed;z-index:3;top:max(22px,env(safe-area-inset-top,0px));left:28px;font-size:12px;letter-spacing:.32em;text-transform:uppercase;font-weight:600;pointer-events:none}
-#hero{position:fixed;z-index:3;top:16vh;width:100%;text-align:center;pointer-events:none;transition:opacity .6s}
-#hero h1{margin:0;font-size:clamp(34px,7vw,92px);font-weight:200;letter-spacing:-.02em}
-#hero p{margin:.6em 0 0;color:var(--mute);letter-spacing:.2em;font-size:12px;text-transform:uppercase}
+canvas#gl,canvas#fx{position:fixed;inset:0;width:100%;height:100%;display:block}
+canvas#gl{z-index:1}canvas#fx{z-index:2;pointer-events:none}
+#brand{position:fixed;z-index:3;top:max(22px,env(safe-area-inset-top,0px));left:28px;pointer-events:none;line-height:1.5}
+#brand b{display:block;font-size:12px;letter-spacing:.32em;text-transform:uppercase;font-weight:600}
+#brand span{display:block;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--mute)}
+#hero{position:fixed;z-index:3;left:28px;top:38vh;max-width:min(300px,30vw);pointer-events:none;transition:opacity .6s}
+#hero h1{margin:0;font-size:clamp(28px,4vw,56px);font-weight:200;letter-spacing:-.02em;line-height:1.05}
+#hero p{margin:1em 0 0;color:var(--mute);letter-spacing:.18em;font-size:11px;text-transform:uppercase;line-height:1.7}
+#sc{position:fixed;z-index:3;left:0;right:0;bottom:max(14px,env(safe-area-inset-bottom,0px));text-align:center;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute);pointer-events:none;transition:opacity .5s}
+#sc i{display:block;width:1px;height:26px;margin:8px auto 0;background:var(--ink);transform-origin:top;animation:ln 1.6s infinite}
+@keyframes ln{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
 #cap{position:fixed;z-index:3;left:28px;bottom:max(30px,env(safe-area-inset-bottom,0px));max-width:340px;pointer-events:none;transition:opacity .35s,transform .35s}
 #cap.o{opacity:0;transform:translateY(10px)}
 #cap small{color:var(--mute);letter-spacing:.2em;font-size:11px}
@@ -33,23 +39,24 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;display:block}
 </head>
 <body>
 <div id="sp"></div>
-<canvas id="gl"></canvas>
-<div id="brand">Jennifer Klette</div>
-<div id="hero"><h1>Portfolio</h1><p>Scroll ↓</p></div>
+<canvas id="gl"></canvas><canvas id="fx"></canvas>
+<div id="brand"><b>Jennifer Klette</b><span>Portfolio</span></div>
+<div id="hero"><h1>My Experience</h1><p>Branding · Print · Visual identity</p></div>
+<div id="sc">Scroll<i></i></div>
 <div id="cap" class="o"><small></small><h2></h2><p></p></div>
 <div id="dots"></div>
-<div id="m"><div class="box"><canvas id="mc" width="1200" height="800"></canvas><div class="tx"><h3></h3><p></p></div><button id="x" aria-label="Schließen">×</button></div></div>
+<div id="m"><div class="box"><canvas id="mc" width="1200" height="800"></canvas><div class="tx"><h3></h3><p></p></div><button id="x" aria-label="Close">×</button></div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// ===== ARBEITSPROBEN: hier eigene Bilder eintragen (img: "pfad.jpg") und Texte anpassen =====
+// ===== WORK SAMPLES: add your own images (img: "images/file.jpg") and edit the texts =====
 const WORKS=[
- {t:"Logo & Corporate Identity",d:"Entwicklung einer kompletten Markenidentität: Logo, Farbwelt, Typografie und Geschäftsausstattung – von der Skizze bis zur finalen Umsetzung.",img:null},
- {t:"Flyer-Kampagne",d:"Layout und Gestaltung eines Flyers für Print und Digital mit klarer Hierarchie und starkem Einstieg.",img:null},
- {t:"Plakat-Serie",d:"Plakate mit reduzierter Bildsprache und großer Typografie, die auch aus der Distanz funktionieren.",img:null},
- {t:"Textildruck",d:"Motive für T-Shirts und Textilien – druckoptimiert, farblich abgestimmt und produktionsfertig aufbereitet.",img:null},
- {t:"Branding Guidelines",d:"Überarbeitung von Brand Guidelines: Farben, Schriften und Anwendungsregeln, damit die Marke überall konsistent bleibt.",img:null},
- {t:"Eventstand",d:"Gestaltung eines Messe- und Eventstands: Raumwirkung, Grafikelemente und Markenauftritt aus einem Guss.",img:null}
+ {t:"ITB Booth SuitePad - 2023",d:"Development of wall graphics for ITB in Berlin.",img:null},
+ {t:"Flyer KlarOs",d:"Layout and design of a flyer for print, with a clear hierarchy and a strong first impression.",img:null},
+ {t:"Product Brochure",d:"A5 brochure for SuitePad",img:null},
+ {t:"Textile Print",d:"Artwork for T-shirts and textiles – optimised for print, colour-matched and production-ready.",img:null},
+ {t:"Whitepaper Design",d:"Report completely set-up in Adobe Indesign",img:null},
+ {t:"Hotel Set-ups",d:"A few of more than 200 hotels i implemented in the SuitePad's",img:null}
 ];
 const PAL=[["#101820","#2b4a6b","#7fd8ff"],["#ff7a59","#ffd166","#1a1a1a"],["#f4f1ea","#d6d0c4","#d62828"],["#1b1b1f","#3a3a44","#c8ff3d"],["#ffffff","#e4e7ec","#5b5bd6"],["#0f3d3e","#1f7a6d","#f2e9d0"]];
 const IMGS=WORKS.map(w=>{if(!w.img)return null;const i=new Image();i.src=w.img;return i});
@@ -74,96 +81,144 @@ const CACHE=WORKS.map((_,i)=>{const c=document.createElement("canvas");c.width=6
 // ===== Three.js =====
 const cv=document.getElementById("gl"),R=new THREE.WebGLRenderer({canvas:cv,antialias:true});
 R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;
-const S=new THREE.Scene();S.background=new THREE.Color(0xeef0f3);S.fog=new THREE.Fog(0xeef0f3,10,26);
+const S=new THREE.Scene();S.background=new THREE.Color(0xeef0f3);S.fog=new THREE.Fog(0xeef0f3,12,30);
 const cam=new THREE.PerspectiveCamera(35,1,.1,60);
-// Studio-Environment für Reflexionen
 {const e=new THREE.Scene();e.background=new THREE.Color(0xc9ced6);const b=(x,y,z,w,h,d,c)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),new THREE.MeshBasicMaterial({color:c}));m.position.set(x,y,z);e.add(m)};
- b(0,9,0,14,.5,14,0xffffff);b(-9,3,2,.5,8,8,0xffffff);b(9,3,2,.5,8,8,0xf0f4ff);b(0,3,9,10,6,.5,0xffffff);b(0,.5,-9,14,1,.5,0x222831);
+ b(0,9,0,14,.5,14,0xffffff);b(-9,3,2,.5,8,8,0xffffff);b(9,3,2,.5,8,8,0xf0f4ff);b(0,3,9,10,6,.5,0xffffff);b(0,.5,-9,14,1,.5,0x222831);b(4,5,6,2,.3,6,0xffffff);
  S.environment=new THREE.PMREMGenerator(R).fromScene(e).texture}
 S.add(new THREE.HemisphereLight(0xffffff,0xdde1e7,.5));
-const key=new THREE.DirectionalLight(0xffffff,.8);key.position.set(3,7,5);key.castShadow=true;key.shadow.mapSize.set(2048,2048);key.shadow.radius=6;key.shadow.camera.left=-5;key.shadow.camera.right=5;key.shadow.camera.top=5;key.shadow.camera.bottom=-3;S.add(key);
+const key=new THREE.DirectionalLight(0xffffff,.8);key.position.set(3,7,5);key.castShadow=true;key.shadow.mapSize.set(2048,2048);key.shadow.radius=6;key.shadow.camera.left=-6;key.shadow.camera.right=6;key.shadow.camera.top=6;key.shadow.camera.bottom=-3;S.add(key);
+const rim=new THREE.DirectionalLight(0xdfe8ff,.5);rim.position.set(-4,3,-4);S.add(rim);
 const floor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.ShadowMaterial({opacity:.16}));floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;S.add(floor);
-const floorBase=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.MeshBasicMaterial({color:0xeef0f3}));floorBase.rotation.x=-Math.PI/2;floorBase.position.y=-.002;S.add(floorBase);
+const fb=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.MeshBasicMaterial({color:0xeef0f3}));fb.rotation.x=-Math.PI/2;fb.position.y=-.002;S.add(fb);
 
-const W=new THREE.MeshPhysicalMaterial({color:0xffffff,roughness:.3,clearcoat:1,clearcoatRoughness:.12});
-const D=new THREE.MeshPhysicalMaterial({color:0x14161a,roughness:.18,metalness:.7});
-const G=new THREE.MeshStandardMaterial({color:0xdfe3e8,roughness:.45,metalness:.2});
-const E=new THREE.MeshBasicMaterial({color:0x8fe0ff});
-const sph=new THREE.SphereGeometry(1,48,32),cyl=new THREE.CylinderGeometry(1,1,1,40);
-function M(geo,mat,p,sc,par){const m=new THREE.Mesh(geo,mat);m.position.set(...p);m.scale.set(...sc);m.castShadow=true;(par||robot).add(m);return m}
-const robot=new THREE.Group();S.add(robot);
-M(sph,W,[0,.98,0],[.5,.3,.38]);M(sph,W,[0,1.7,0],[.62,.78,.46]);M(cyl,D,[0,2.38,0],[.13,.1,.13]);
-for(const s of[-1,1]){M(cyl,G,[s*.26,.46,0],[.15,.46,.15]);M(sph,W,[s*.26,.1,.1],[.22,.11,.38])}
-const head=new THREE.Group();head.position.y=2.78;robot.add(head);
-M(sph,W,[0,0,0],[.46,.4,.42],head);M(sph,D,[0,0,.27],[.38,.22,.2],head);
-for(const s of[-1,1]){M(sph,E,[s*.14,.02,.465],[.055,.075,.02],head);M(cyl,D,[s*.46,0,0],[.07,.14,.07],head).rotation.z=Math.PI/2}
+const W=new THREE.MeshPhysicalMaterial({color:0xffffff,roughness:.26,clearcoat:1,clearcoatRoughness:.08,envMapIntensity:1.1});
+const D=new THREE.MeshPhysicalMaterial({color:0x101216,roughness:.35,metalness:.5,clearcoat:.6});
+const G=new THREE.MeshStandardMaterial({color:0xcfd4db,roughness:.3,metalness:.85});
+const V=new THREE.MeshPhysicalMaterial({color:0x050607,roughness:.04,metalness:.9,clearcoat:1});
+const E=new THREE.MeshBasicMaterial({color:0x39ff88});
+const EH=new THREE.MeshBasicMaterial({color:0x39ff88,transparent:true,opacity:.22,blending:THREE.AdditiveBlending,depthWrite:false});
+const sph=new THREE.SphereGeometry(1,48,32),cyl=new THREE.CylinderGeometry(1,1,1,40),cone=new THREE.CylinderGeometry(1,.8,1,40),tor=new THREE.TorusGeometry(1,.2,16,48);
+function M(geo,mat,p,sc,par){const m=new THREE.Mesh(geo,mat);m.position.set(...p);m.scale.set(...sc);m.castShadow=mat!==EH;(par||robot).add(m);return m}
+const robot=new THREE.Group();robot.scale.setScalar(1.15);S.add(robot);
+// pelvis, abdomen, torso
+M(sph,W,[0,.98,0],[.5,.28,.37]);
+for(const y of[1.14,1.22,1.3])M(cyl,D,[0,y,0],[.3,.03,.23]);
+M(sph,W,[0,1.75,0],[.62,.7,.46]);
+M(sph,D,[0,1.95,.36],[.34,.26,.12]);M(sph,E,[0,1.95,.485],[.05,.05,.02]);
+M(tor,G,[0,2.38,0],[.2,.2,.2]).rotation.x=Math.PI/2;
+M(cyl,D,[0,2.46,0],[.11,.08,.11]);
+// legs
+for(const s of[-1,1]){
+ M(sph,D,[s*.27,.9,0],[.17,.17,.17]);M(cone,W,[s*.27,.66,0],[.16,.24,.16]);M(sph,D,[s*.27,.42,0],[.14,.14,.14]);
+ M(cone,W,[s*.27,.26,0],[.14,.16,.14]);M(cyl,G,[s*.27,.17,0],[.145,.02,.145]);M(sph,W,[s*.27,.09,.1],[.22,.11,.38]);
+}
+// head
+const head=new THREE.Group();head.position.y=2.8;robot.add(head);
+M(sph,W,[0,0,0],[.46,.4,.42],head);M(sph,V,[0,0,.27],[.4,.23,.2],head);
+for(const s of[-1,1]){M(sph,E,[s*.15,.02,.455],[.055,.075,.02],head);M(sph,EH,[s*.15,.02,.45],[.1,.12,.04],head);
+ M(cyl,D,[s*.47,0,0],[.12,.06,.12],head).rotation.z=Math.PI/2;M(cyl,G,[s*.5,0,0],[.07,.05,.07],head).rotation.z=Math.PI/2}
+// arms
+const bm=new THREE.MeshBasicMaterial({color:0x39ff88,transparent:true,opacity:.07,blending:THREE.AdditiveBlending,depthWrite:false});
 const arms={};
 for(const s of[-1,1]){
- const sh=new THREE.Group();sh.position.set(s*.8,1.98,0);sh.rotation.order="YXZ";robot.add(sh);
- M(sph,D,[0,0,0],[.17,.17,.17],sh);M(cyl,W,[0,-.3,0],[.1,.3,.1],sh);
- const el=new THREE.Group();el.position.y=-.6;sh.add(el);M(sph,D,[0,0,0],[.12,.12,.12],el);M(cyl,W,[0,-.3,0],[.09,.3,.09],el);
- const hd=new THREE.Group();hd.position.y=-.62;el.add(hd);M(sph,W,[0,0,0],[.14,.17,.1],hd);
- // Display
+ const sh=new THREE.Group();sh.position.set(s*.82,2.05,0);sh.rotation.order="YXZ";robot.add(sh);
+ M(sph,D,[0,0,0],[.17,.17,.17],sh);M(sph,W,[s*.04,.03,0],[.2,.19,.2],sh);
+ M(cone,W,[0,-.3,0],[.1,.3,.1],sh);M(cyl,G,[0,-.5,0],[.105,.012,.105],sh);
+ const el=new THREE.Group();el.position.y=-.6;sh.add(el);M(sph,D,[0,0,0],[.115,.115,.115],el);M(cone,W,[0,-.3,0],[.095,.3,.095],el);M(cyl,G,[0,-.57,0],[.085,.02,.085],el);
+ const hd=new THREE.Group();hd.position.y=-.64;el.add(hd);
+ M(sph,W,[0,-.1,0],[.13,.15,.05],hd);M(tor,E,[0,-.1,.04],[.09,.09,.09],hd).scale.z=.05;
+ M(cyl,bm,[0,-.1,.3],[.09,.3,.09],hd).rotation.x=Math.PI/2;
+ for(let k=-1.5;k<=1.5;k++){const f=new THREE.Group();f.position.set(k*.07,-.22,.01);f.rotation.x=-.3;hd.add(f);
+  M(cyl,W,[0,-.07,0],[.026,.07,.026],f);const j=new THREE.Group();j.position.y=-.14;j.rotation.x=-.5;f.add(j);M(cyl,W,[0,-.06,0],[.022,.06,.022],j);M(sph,W,[0,-.12,0],[.024,.024,.024],j)}
+ const th=new THREE.Group();th.position.set(-s*.12,-.05,0);th.rotation.z=-s*.7;hd.add(th);M(cyl,W,[0,-.08,0],[.03,.08,.03],th);M(sph,W,[0,-.16,0],[.03,.03,.03],th);
+ // display
  const dg=new THREE.Group();S.add(dg);
- const bez=new THREE.Mesh(new THREE.BoxGeometry(1.84,1.24,.06),D);bez.castShadow=true;dg.add(bez);
+ const bez=new THREE.Mesh(new THREE.BoxGeometry(2.56,1.72,.07),D);bez.castShadow=true;dg.add(bez);
  const c=document.createElement("canvas");c.width=640;c.height=420;const tex=new THREE.CanvasTexture(c);tex.encoding=THREE.sRGBEncoding;
- const scr=new THREE.Mesh(new THREE.PlaneGeometry(1.74,1.14),new THREE.MeshBasicMaterial({map:tex}));scr.position.z=.035;dg.add(scr);
- const glow=new THREE.Mesh(new THREE.TorusGeometry(.2,.012,8,40),E);glow.rotation.x=Math.PI/2;dg.add(glow);
+ const scr=new THREE.Mesh(new THREE.PlaneGeometry(2.44,1.6),new THREE.MeshBasicMaterial({map:tex}));scr.position.z=.04;dg.add(scr);
  arms[s]={sh,el,hd,dg,scr,ctx:c.getContext("2d"),tex,ext:0,tgt:0,i:-1,flick:0};
 }
-let ex=0;
 function paint(a){
  const g=a.ctx;g.fillStyle="#05070a";g.fillRect(0,0,640,420);
  if(a.flick>0){const k=a.flick;
   if(Math.random()>k*.7)g.drawImage(CACHE[a.i],(Math.random()-.5)*30*k,0);
   else for(let n=0;n<260;n++){const v=Math.random()*255|0;g.fillStyle=`rgb(${v},${v},${v})`;g.fillRect(Math.random()*640,Math.random()*420,24,3)}
-  g.fillStyle="rgba(143,224,255,.35)";g.fillRect(0,Math.random()*420,640,6+Math.random()*20);
+  g.fillStyle="rgba(57,255,136,.35)";g.fillRect(0,Math.random()*420,640,6+Math.random()*20);
  }else g.drawImage(CACHE[a.i],0,0);
  g.fillStyle="rgba(0,0,0,.14)";for(let y=0;y<420;y+=4)g.fillRect(0,y,640,1);
  a.tex.needsUpdate=true;
 }
 
-// ===== Scroll / Zustand =====
+// ===== Scroll / state =====
 const N=WORKS.length,SEC=N+2;
-const cap=document.getElementById("cap"),hero=document.getElementById("hero"),dots=document.getElementById("dots");
+const cap=document.getElementById("cap"),hero=document.getElementById("hero"),sc=document.getElementById("sc"),dots=document.getElementById("dots");
 for(let i=0;i<SEC;i++)dots.appendChild(document.createElement("i"));
 let idx=-1;
 function setIdx(n){
  if(n===idx)return;idx=n;const p=n-1;
  [...dots.children].forEach((d,i)=>d.classList.toggle("a",i===n));
- hero.style.opacity=n===0?1:0;
+ hero.style.opacity=sc.style.opacity=n===0?1:0;
  for(const s of[-1,1])arms[s].tgt=0;
  cap.classList.add("o");
  setTimeout(()=>{
   const q=cap.children;
-  if(p>=0&&p<N){q[0].textContent=String(p+1).padStart(2,"0")+" / "+String(N).padStart(2,"0");q[1].textContent=WORKS[p].t;q[2].textContent="Tippe oder klicke auf das Display.";cap.classList.remove("o")}
-  else if(p>=N){q[0].textContent="Kontakt";q[1].textContent="Arctium Design";q[2].textContent="info@arctiumdesign.de";cap.classList.remove("o")}
+  if(p>=0&&p<N){q[0].textContent=String(p+1).padStart(2,"0")+" / "+String(N).padStart(2,"0");q[1].textContent=WORKS[p].t;q[2].textContent="Tap or click the display.";cap.classList.remove("o")}
+  else if(p>=N){q[0].textContent="Contact";q[1].textContent="Arctium Design";q[2].textContent="info@arctiumdesign.de";cap.classList.remove("o")}
  },300);
- if(p>=0&&p<N){const s=p%2===0?1:-1,a=arms[s];a.tgt=1;a.i=p;a.flick=1.2;ex=0}
+ if(p>=0&&p<N){const s=p%2===0?1:-1,a=arms[s];a.tgt=1;a.i=p;a.flick=1.2}
  if(p>=N){arms[-1].tgt=arms[1].tgt=.3}
 }
 addEventListener("scroll",()=>setIdx(Math.max(0,Math.min(SEC-1,Math.round(scrollY/innerHeight)))),{passive:true});
-function size(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;const a=w/h;cam.position.set(0,2.1,Math.max(8.5,3.3/(Math.tan(.1527)*a)));cam.lookAt(0,1.75,0);cam.updateProjectionMatrix()}
+const fx=document.getElementById("fx"),fg=fx.getContext("2d");
+function size(){const w=innerWidth,h=innerHeight,dpr=Math.min(devicePixelRatio,2);R.setSize(w,h,false);fx.width=w*dpr;fx.height=h*dpr;fg.setTransform(dpr,0,0,dpr,0,0);
+ cam.aspect=w/h;cam.position.set(0,2.3,Math.min(22,Math.max(6.5,1.4+3.5/(Math.tan(.1527)*(w/h)))));cam.lookAt(0,1.85,0);cam.updateProjectionMatrix();cam.updateMatrixWorld()}
 addEventListener("resize",size);size();
+
+// ===== Invisible barrier: pixel squares =====
+const PX=[];let mx=-999,my=-999,pmx=-999,pmy=-999;
+const pr=(x,y,z)=>{const v=new THREE.Vector3(x,y,z).project(cam);return[(v.x*.5+.5)*innerWidth,(-v.y*.5+.5)*innerHeight]};
+const gs=()=>Math.random()+Math.random()+Math.random()-1.5;
+const COL=["#15171b","#15171b","#8a929c","#2bd66f"];
+function barrier(){const c=pr(0,2.1,0),r=pr(1.35,2.1,0),t=pr(0,4.3,0);return{cx:c[0],cy:c[1],rx:Math.abs(r[0]-c[0]),ry:Math.abs(c[1]-t[1])}}
+addEventListener("pointermove",e=>{
+ pmx=mx;pmy=my;mx=e.clientX;my=e.clientY;if(pmx<-900)return;
+ const b=barrier(),sp=Math.hypot(mx-pmx,my-pmy),nx=(mx-b.cx)/b.rx,ny=(my-b.cy)/b.ry,d=Math.hypot(nx,ny),near=1-Math.abs(d-1)/.25;
+ if(near<=0||sp<1)return;
+ const a=Math.atan2(ny,nx),n=Math.min(9,Math.ceil(near*(1+sp/8)));
+ for(let i=0;i<n;i++){
+  const tj=gs()*110,o=Math.random()<.74?Math.abs(gs())*70:-Math.abs(gs())*22;
+  const x=b.cx+b.rx*Math.cos(a)+(-Math.sin(a))*tj+Math.cos(a)*o,y=b.cy+b.ry*Math.sin(a)+Math.cos(a)*tj+Math.sin(a)*o;
+  const sz=Math.random()<.7?6:Math.random()<.7?12:18,life=.5+Math.random()*1.1;
+  PX.push({x:Math.round(x/6)*6,y:Math.round(y/6)*6,s:sz,l:life,m:life,c:COL[Math.random()*4|0],o:Math.random()<.25});
+ }
+});
+function fxDraw(dt){
+ fg.clearRect(0,0,innerWidth,innerHeight);
+ for(let i=PX.length-1;i>=0;i--){const p=PX[i];p.l-=dt;if(p.l<=0){PX.splice(i,1);continue}
+  const k=p.l/p.m;fg.globalAlpha=k*k*.85;
+  if(p.o){fg.strokeStyle=p.c;fg.lineWidth=1;fg.strokeRect(p.x+.5,p.y+.5,p.s-1,p.s-1)}else{fg.fillStyle=p.c;fg.fillRect(p.x,p.y,p.s,p.s)}}
+ fg.globalAlpha=1;
+}
 
 const clock=new THREE.Clock(),L=(a,b,k)=>a+(b-a)*k;
 function loop(){
  requestAnimationFrame(loop);const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime;
- let side=0;
+ let side=0;const v=new THREE.Vector3();
  for(const s of[-1,1]){const a=arms[s];a.ext=L(a.ext,a.tgt,.06);
-  a.sh.rotation.x=-1.2*a.ext+Math.sin(t*1.4+s)*.02*a.ext;a.sh.rotation.y=s*.7*a.ext;a.el.rotation.x=-.5*a.ext;
+  a.sh.rotation.x=-1.2*a.ext+Math.sin(t*1.4+s)*.02*a.ext;a.sh.rotation.y=s*.8*a.ext;a.el.rotation.x=-.5*a.ext;
   if(a.tgt===1)side=s;
-  a.dg.visible=a.tgt===1&&a.ext>.15||a.ext>.4;a.dg.scale.setScalar(Math.max(.001,Math.min(1,(a.ext-.35)/.65)));
-  if(a.dg.visible){robot.updateMatrixWorld(true);const v=new THREE.Vector3();a.hd.getWorldPosition(v);a.dg.position.set(v.x+s*.05,v.y+.62+Math.sin(t*1.8)*.03,v.z+.1);a.dg.lookAt(cam.position.x*.3,cam.position.y,cam.position.z);
+  a.dg.visible=a.ext>.4;a.dg.scale.setScalar(Math.max(.001,Math.min(1,(a.ext-.35)/.65)));
+  if(a.dg.visible){robot.updateMatrixWorld(true);a.hd.getWorldPosition(v);a.dg.position.set(v.x+s*.25,v.y+.95+Math.sin(t*1.8)*.03,v.z+.1);a.dg.lookAt(cam.position.x*.3,cam.position.y,cam.position.z);
    if(a.flick>0)a.flick-=dt;if(a.i>=0&&a.ext>.5)paint(a);}
  }
  head.rotation.y=L(head.rotation.y,side*.5,.07);head.rotation.x=L(head.rotation.x,side?.08:0,.07);
  robot.rotation.y=L(robot.rotation.y,side*.14,.05);robot.position.y=Math.sin(t*1.2)*.02;
- R.render(S,cam);
+ R.render(S,cam);fxDraw(dt);
 }
 loop();
 
-// ===== Klick aufs Display =====
+// ===== Click on display =====
 const ray=new THREE.Raycaster(),mv=new THREE.Vector2(),m=document.getElementById("m");
 function pick(e){mv.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1);ray.setFromCamera(mv,cam);
  for(const s of[-1,1]){const a=arms[s];if(a.tgt===1&&a.ext>.85&&ray.intersectObject(a.scr).length)return a}return null}
