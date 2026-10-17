@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Arctium Design – Arbeitsproben</title>
+<style>
+:root{--bg:#eef0f3;--ink:#15171b;--mute:#6b7078;box-sizing:border-box;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+#sp{height:800vh}
+canvas#gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;display:block}
+#brand{position:fixed;z-index:3;top:max(22px,env(safe-area-inset-top,0px));left:28px;font-size:12px;letter-spacing:.32em;text-transform:uppercase;font-weight:600;pointer-events:none}
+#hero{position:fixed;z-index:3;top:16vh;width:100%;text-align:center;pointer-events:none;transition:opacity .6s}
+#hero h1{margin:0;font-size:clamp(34px,7vw,92px);font-weight:200;letter-spacing:-.02em}
+#hero p{margin:.6em 0 0;color:var(--mute);letter-spacing:.2em;font-size:12px;text-transform:uppercase}
+#cap{position:fixed;z-index:3;left:28px;bottom:max(30px,env(safe-area-inset-bottom,0px));max-width:340px;pointer-events:none;transition:opacity .35s,transform .35s}
+#cap.o{opacity:0;transform:translateY(10px)}
+#cap small{color:var(--mute);letter-spacing:.2em;font-size:11px}
+#cap h2{margin:.3em 0 .4em;font-size:26px;font-weight:300}
+#cap p{margin:0;color:var(--mute);font-size:14px;line-height:1.5}
+#dots{position:fixed;z-index:3;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px}
+#dots i{width:6px;height:6px;border-radius:50%;background:#c3c8cf;transition:.3s}
+#dots i.a{background:var(--ink);transform:scale(1.7)}
+#m{position:fixed;inset:0;z-index:10;display:none;align-items:center;justify-content:center;background:rgba(238,240,243,.88);backdrop-filter:blur(14px);padding:20px}
+#m.on{display:flex}
+.box{background:#fff;border-radius:18px;box-shadow:0 30px 80px rgba(20,25,35,.18);max-width:980px;width:100%;max-height:92vh;overflow:auto;position:relative}
+.box canvas{width:100%;display:block;border-radius:18px 18px 0 0}
+.tx{padding:22px 28px 28px}.tx h3{margin:0 0 8px;font-size:24px;font-weight:300}.tx p{margin:0;color:var(--mute);line-height:1.6}
+#x{position:absolute;top:12px;right:14px;border:0;background:rgba(255,255,255,.9);width:38px;height:38px;border-radius:50%;font-size:20px;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="sp"></div>
+<canvas id="gl"></canvas>
+<div id="brand">Arctium Design</div>
+<div id="hero"><h1>Hallo. Ich zeige dir was.</h1><p>Scroll ↓</p></div>
+<div id="cap" class="o"><small></small><h2></h2><p></p></div>
+<div id="dots"></div>
+<div id="m"><div class="box"><canvas id="mc" width="1200" height="800"></canvas><div class="tx"><h3></h3><p></p></div><button id="x" aria-label="Schließen">×</button></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ===== ARBEITSPROBEN: hier eigene Bilder eintragen (img: "pfad.jpg") und Texte anpassen =====
+const WORKS=[
+ {t:"Logo & Corporate Identity",d:"Entwicklung einer kompletten Markenidentität: Logo, Farbwelt, Typografie und Geschäftsausstattung – von der Skizze bis zur finalen Umsetzung.",img:null},
+ {t:"Flyer-Kampagne",d:"Layout und Gestaltung eines Flyers für Print und Digital mit klarer Hierarchie und starkem Einstieg.",img:null},
+ {t:"Plakat-Serie",d:"Plakate mit reduzierter Bildsprache und großer Typografie, die auch aus der Distanz funktionieren.",img:null},
+ {t:"Textildruck",d:"Motive für T-Shirts und Textilien – druckoptimiert, farblich abgestimmt und produktionsfertig aufbereitet.",img:null},
+ {t:"Branding Guidelines",d:"Überarbeitung von Brand Guidelines: Farben, Schriften und Anwendungsregeln, damit die Marke überall konsistent bleibt.",img:null},
+ {t:"Eventstand",d:"Gestaltung eines Messe- und Eventstands: Raumwirkung, Grafikelemente und Markenauftritt aus einem Guss.",img:null}
+];
+const PAL=[["#101820","#2b4a6b","#7fd8ff"],["#ff7a59","#ffd166","#1a1a1a"],["#f4f1ea","#d6d0c4","#d62828"],["#1b1b1f","#3a3a44","#c8ff3d"],["#ffffff","#e4e7ec","#5b5bd6"],["#0f3d3e","#1f7a6d","#f2e9d0"]];
+const IMGS=WORKS.map(w=>{if(!w.img)return null;const i=new Image();i.src=w.img;return i});
+
+function drawArt(c,w,h,i){
+ const g=c.getContext("2d"),P=PAL[i],s=h/420;
+ const gr=g.createLinearGradient(0,0,w,h);gr.addColorStop(0,P[0]);gr.addColorStop(1,P[1]);g.fillStyle=gr;g.fillRect(0,0,w,h);
+ const im=IMGS[i];
+ if(im&&im.complete&&im.naturalWidth){const r=Math.max(w/im.naturalWidth,h/im.naturalHeight);g.drawImage(im,(w-im.naturalWidth*r)/2,(h-im.naturalHeight*r)/2,im.naturalWidth*r,im.naturalHeight*r);return}
+ g.fillStyle=P[2];g.strokeStyle=P[2];g.lineWidth=14*s;
+ const cx=w/2,cy=h/2;
+ if(i==0){g.beginPath();g.arc(cx,cy-10*s,95*s,0,7);g.stroke();g.beginPath();g.moveTo(cx,cy-80*s);g.lineTo(cx+60*s,cy+40*s);g.lineTo(cx-60*s,cy+40*s);g.closePath();g.fill()}
+ if(i==1){for(let k=0;k<7;k++){g.globalAlpha=.25+k*.1;g.fillRect(-40*s+k*110*s,0,50*s,h)}g.globalAlpha=1;g.fillStyle="#fff";g.fillRect(60*s,230*s,w*.5,10*s);g.fillRect(60*s,260*s,w*.35,10*s)}
+ if(i==2){g.beginPath();g.arc(cx,cy+30*s,150*s,0,7);g.fill();g.fillStyle=P[0];g.font=`900 ${110*s}px Helvetica,Arial`;g.textAlign="center";g.fillText("POSTER",cx,cy+75*s)}
+ if(i==3){g.beginPath();g.moveTo(cx-60*s,50*s);g.lineTo(cx-150*s,120*s);g.lineTo(cx-110*s,170*s);g.lineTo(cx-80*s,150*s);g.lineTo(cx-80*s,370*s);g.lineTo(cx+80*s,370*s);g.lineTo(cx+80*s,150*s);g.lineTo(cx+110*s,170*s);g.lineTo(cx+150*s,120*s);g.lineTo(cx+60*s,50*s);g.quadraticCurveTo(cx,100*s,cx-60*s,50*s);g.fillStyle="#fff";g.fill();g.fillStyle=P[2];g.beginPath();g.arc(cx,230*s,40*s,0,7);g.fill()}
+ if(i==4){["#5b5bd6","#15171b","#ff7a59","#c8ff3d"].forEach((k,n)=>{g.fillStyle=k;g.fillRect(50*s+n*70*s,50*s,60*s,60*s)});g.fillStyle="#15171b";g.font=`200 ${190*s}px Helvetica,Arial`;g.textAlign="left";g.fillText("Aa",50*s,310*s)}
+ if(i==5){for(let k=0;k<4;k++){g.globalAlpha=.3+k*.2;g.fillRect(70*s+k*130*s,300*s-k*50*s,100*s,100*s+k*50*s)}g.globalAlpha=1}
+ g.fillStyle=i==1||i==2||i==4?"#15171b":"#fff";g.textAlign="left";g.font=`600 ${20*s}px Helvetica,Arial`;g.fillText(WORKS[i].t.toUpperCase(),28*s,h-26*s);
+}
+const CACHE=WORKS.map((_,i)=>{const c=document.createElement("canvas");c.width=640;c.height=420;drawArt(c,640,420,i);return c});
+
+// ===== Three.js =====
+const cv=document.getElementById("gl"),R=new THREE.WebGLRenderer({canvas:cv,antialias:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;
+const S=new THREE.Scene();S.background=new THREE.Color(0xeef0f3);S.fog=new THREE.Fog(0xeef0f3,10,26);
+const cam=new THREE.PerspectiveCamera(35,1,.1,60);
+// Studio-Environment für Reflexionen
+{const e=new THREE.Scene();e.background=new THREE.Color(0xc9ced6);const b=(x,y,z,w,h,d,c)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),new THREE.MeshBasicMaterial({color:c}));m.position.set(x,y,z);e.add(m)};
+ b(0,9,0,14,.5,14,0xffffff);b(-9,3,2,.5,8,8,0xffffff);b(9,3,2,.5,8,8,0xf0f4ff);b(0,3,9,10,6,.5,0xffffff);b(0,.5,-9,14,1,.5,0x222831);
+ S.environment=new THREE.PMREMGenerator(R).fromScene(e).texture}
+S.add(new THREE.HemisphereLight(0xffffff,0xdde1e7,.5));
+const key=new THREE.DirectionalLight(0xffffff,.8);key.position.set(3,7,5);key.castShadow=true;key.shadow.mapSize.set(2048,2048);key.shadow.radius=6;key.shadow.camera.left=-5;key.shadow.camera.right=5;key.shadow.camera.top=5;key.shadow.camera.bottom=-3;S.add(key);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.ShadowMaterial({opacity:.16}));floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;S.add(floor);
+const floorBase=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.MeshBasicMaterial({color:0xeef0f3}));floorBase.rotation.x=-Math.PI/2;floorBase.position.y=-.002;S.add(floorBase);
+
+const W=new THREE.MeshPhysicalMaterial({color:0xffffff,roughness:.3,clearcoat:1,clearcoatRoughness:.12});
+const D=new THREE.MeshPhysicalMaterial({color:0x14161a,roughness:.18,metalness:.7});
+const G=new THREE.MeshStandardMaterial({color:0xdfe3e8,roughness:.45,metalness:.2});
+const E=new THREE.MeshBasicMaterial({color:0x8fe0ff});
+const sph=new THREE.SphereGeometry(1,48,32),cyl=new THREE.CylinderGeometry(1,1,1,40);
+function M(geo,mat,p,sc,par){const m=new THREE.Mesh(geo,mat);m.position.set(...p);m.scale.set(...sc);m.castShadow=true;(par||robot).add(m);return m}
+const robot=new THREE.Group();S.add(robot);
+M(sph,W,[0,.98,0],[.5,.3,.38]);M(sph,W,[0,1.7,0],[.62,.78,.46]);M(cyl,D,[0,2.38,0],[.13,.1,.13]);
+for(const s of[-1,1]){M(cyl,G,[s*.26,.46,0],[.15,.46,.15]);M(sph,W,[s*.26,.1,.1],[.22,.11,.38])}
+const head=new THREE.Group();head.position.y=2.78;robot.add(head);
+M(sph,W,[0,0,0],[.46,.4,.42],head);M(sph,D,[0,0,.27],[.38,.22,.2],head);
+for(const s of[-1,1]){M(sph,E,[s*.14,.02,.465],[.055,.075,.02],head);M(cyl,D,[s*.46,0,0],[.07,.14,.07],head).rotation.z=Math.PI/2}
+const arms={};
+for(const s of[-1,1]){
+ const sh=new THREE.Group();sh.position.set(s*.8,1.98,0);sh.rotation.order="YXZ";robot.add(sh);
+ M(sph,D,[0,0,0],[.17,.17,.17],sh);M(cyl,W,[0,-.3,0],[.1,.3,.1],sh);
+ const el=new THREE.Group();el.position.y=-.6;sh.add(el);M(sph,D,[0,0,0],[.12,.12,.12],el);M(cyl,W,[0,-.3,0],[.09,.3,.09],el);
+ const hd=new THREE.Group();hd.position.y=-.62;el.add(hd);M(sph,W,[0,0,0],[.14,.17,.1],hd);
+ // Display
+ const dg=new THREE.Group();S.add(dg);
+ const bez=new THREE.Mesh(new THREE.BoxGeometry(1.84,1.24,.06),D);bez.castShadow=true;dg.add(bez);
+ const c=document.createElement("canvas");c.width=640;c.height=420;const tex=new THREE.CanvasTexture(c);tex.encoding=THREE.sRGBEncoding;
+ const scr=new THREE.Mesh(new THREE.PlaneGeometry(1.74,1.14),new THREE.MeshBasicMaterial({map:tex}));scr.position.z=.035;dg.add(scr);
+ const glow=new THREE.Mesh(new THREE.TorusGeometry(.2,.012,8,40),E);glow.rotation.x=Math.PI/2;dg.add(glow);
+ arms[s]={sh,el,hd,dg,scr,ctx:c.getContext("2d"),tex,ext:0,tgt:0,i:-1,flick:0};
+}
+let ex=0;
+function paint(a){
+ const g=a.ctx;g.fillStyle="#05070a";g.fillRect(0,0,640,420);
+ if(a.flick>0){const k=a.flick;
+  if(Math.random()>k*.7)g.drawImage(CACHE[a.i],(Math.random()-.5)*30*k,0);
+  else for(let n=0;n<260;n++){const v=Math.random()*255|0;g.fillStyle=`rgb(${v},${v},${v})`;g.fillRect(Math.random()*640,Math.random()*420,24,3)}
+  g.fillStyle="rgba(143,224,255,.35)";g.fillRect(0,Math.random()*420,640,6+Math.random()*20);
+ }else g.drawImage(CACHE[a.i],0,0);
+ g.fillStyle="rgba(0,0,0,.14)";for(let y=0;y<420;y+=4)g.fillRect(0,y,640,1);
+ a.tex.needsUpdate=true;
+}
+
+// ===== Scroll / Zustand =====
+const N=WORKS.length,SEC=N+2;
+const cap=document.getElementById("cap"),hero=document.getElementById("hero"),dots=document.getElementById("dots");
+for(let i=0;i<SEC;i++)dots.appendChild(document.createElement("i"));
+let idx=-1;
+function setIdx(n){
+ if(n===idx)return;idx=n;const p=n-1;
+ [...dots.children].forEach((d,i)=>d.classList.toggle("a",i===n));
+ hero.style.opacity=n===0?1:0;
+ for(const s of[-1,1])arms[s].tgt=0;
+ cap.classList.add("o");
+ setTimeout(()=>{
+  const q=cap.children;
+  if(p>=0&&p<N){q[0].textContent=String(p+1).padStart(2,"0")+" / "+String(N).padStart(2,"0");q[1].textContent=WORKS[p].t;q[2].textContent="Tippe oder klicke auf das Display.";cap.classList.remove("o")}
+  else if(p>=N){q[0].textContent="Kontakt";q[1].textContent="Arctium Design";q[2].textContent="info@arctiumdesign.de";cap.classList.remove("o")}
+ },300);
+ if(p>=0&&p<N){const s=p%2===0?1:-1,a=arms[s];a.tgt=1;a.i=p;a.flick=1.2;ex=0}
+ if(p>=N){arms[-1].tgt=arms[1].tgt=.3}
+}
+addEventListener("scroll",()=>setIdx(Math.max(0,Math.min(SEC-1,Math.round(scrollY/innerHeight)))),{passive:true});
+function size(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;const a=w/h;cam.position.set(0,2.1,Math.max(8.5,3.3/(Math.tan(.1527)*a)));cam.lookAt(0,1.75,0);cam.updateProjectionMatrix()}
+addEventListener("resize",size);size();
+
+const clock=new THREE.Clock(),L=(a,b,k)=>a+(b-a)*k;
+function loop(){
+ requestAnimationFrame(loop);const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime;
+ let side=0;
+ for(const s of[-1,1]){const a=arms[s];a.ext=L(a.ext,a.tgt,.06);
+  a.sh.rotation.x=-1.2*a.ext+Math.sin(t*1.4+s)*.02*a.ext;a.sh.rotation.y=s*.7*a.ext;a.el.rotation.x=-.5*a.ext;
+  if(a.tgt===1)side=s;
+  a.dg.visible=a.tgt===1&&a.ext>.15||a.ext>.4;a.dg.scale.setScalar(Math.max(.001,Math.min(1,(a.ext-.35)/.65)));
+  if(a.dg.visible){robot.updateMatrixWorld(true);const v=new THREE.Vector3();a.hd.getWorldPosition(v);a.dg.position.set(v.x+s*.05,v.y+.62+Math.sin(t*1.8)*.03,v.z+.1);a.dg.lookAt(cam.position.x*.3,cam.position.y,cam.position.z);
+   if(a.flick>0)a.flick-=dt;if(a.i>=0&&a.ext>.5)paint(a);}
+ }
+ head.rotation.y=L(head.rotation.y,side*.5,.07);head.rotation.x=L(head.rotation.x,side?.08:0,.07);
+ robot.rotation.y=L(robot.rotation.y,side*.14,.05);robot.position.y=Math.sin(t*1.2)*.02;
+ R.render(S,cam);
+}
+loop();
+
+// ===== Klick aufs Display =====
+const ray=new THREE.Raycaster(),mv=new THREE.Vector2(),m=document.getElementById("m");
+function pick(e){mv.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1);ray.setFromCamera(mv,cam);
+ for(const s of[-1,1]){const a=arms[s];if(a.tgt===1&&a.ext>.85&&ray.intersectObject(a.scr).length)return a}return null}
+cv.addEventListener("pointermove",e=>{cv.style.cursor=pick(e)?"pointer":"default"});
+cv.addEventListener("click",e=>{const a=pick(e);if(!a)return;
+ drawArt(document.getElementById("mc"),1200,800,a.i);
+ m.querySelector("h3").textContent=WORKS[a.i].t;m.querySelector("p").textContent=WORKS[a.i].d;m.classList.add("on")});
+const close=()=>m.classList.remove("on");
+document.getElementById("x").onclick=close;m.addEventListener("click",e=>{if(e.target===m)close()});addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+setIdx(0);
+</script>
+</body>
+</html>
