@@ -1,30 +1,30 @@
-// ===== WORK SAMPLES: add your own images (img: "images/file.jpg") and edit the texts =====
+// ===== WORK SAMPLES: add your own images (img: "img/file.jpg") and edit the texts =====
 const WORKS = [
   {
     t: "ITB Booth SuitePad - 2023",
     d: "Development of wall graphics for ITB in Berlin.",
-    img: "images/itb-booth.jpg",
+    img: "img/itb-booth.jpg",
   },
   {
     t: "Magazine CityInfo Recklinghausen",
     d: "Design of print brochure",
-    img: "images/city-info.jpg",
+    img: "img/city-info.jpg",
   },
-  { t: "Product Brochure", d: "A5 brochure for SuitePad", img: "images/product-brochure.jpg" },
+  { t: "Product Brochure", d: "A5 brochure for SuitePad", img: "img/product-brochure.jpg" },
   {
     t: "Textile Print",
     d: "Artwork for T-shirts and textiles – optimised for print, colour-matched and production-ready.",
-    img: "images/textile-print.jpg",
+    img: "img/textile-print.jpg",
   },
   {
     t: "Whitepaper Design",
     d: "Report completely set-up in Adobe Indesign",
-    img: "images/whitepaper.jpg",
+    img: "img/whitepaper.jpg",
   },
   {
     t: "Hotel Set-ups",
     d: "A few of more than 200 hotels i implemented in the SuitePad's",
-    img: "images/hotel-setups.jpg",
+    img: "img/hotel-setups.jpg",
   },
 ];
 const PAL = [
