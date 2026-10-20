@@ -1,4 +1,4 @@
-// ===== WORK SAMPLES: add your own images (img: "img/file.jpg") and edit the texts =====
+// ===== WORK SAMPLES: add your own img (img: "img/file.jpg") and edit the texts =====
 const WORKS = [
   {
     t: "ITB Booth SuitePad - 2023",
@@ -27,6 +27,7 @@ const WORKS = [
     img: "img/hotel-setups.jpg",
   },
 ];
+const U = (p) => (window.DATA && window.DATA[p]) || p;
 const PAL = [
   ["#101820", "#2b4a6b", "#7fd8ff"],
   ["#ff7a59", "#ffd166", "#1a1a1a"],
@@ -35,19 +36,8 @@ const PAL = [
   ["#ffffff", "#e4e7ec", "#5b5bd6"],
   ["#0f3d3e", "#1f7a6d", "#f2e9d0"],
 ];
-const IMGS = WORKS.map((w, n) => {
-  if (!w.img) return null;
-  const i = new Image();
-  i.onload = () => {
-    try {
-      drawArt(CACHE[n], TW, TH, n);
-      arms[-1].done = arms[1].done = -1;
-    } catch (e) {}
-  };
-  i.src = w.img;
-  return i;
-});
-
+const TW = 1280,
+  TH = 840;
 function drawArt(c, w, h, i) {
   const g = c.getContext("2d"),
     P = PAL[i],
@@ -69,85 +59,23 @@ function drawArt(c, w, h, i) {
     );
     return;
   }
-  g.fillStyle = P[2];
-  g.strokeStyle = P[2];
-  g.lineWidth = 14 * s;
-  const cx = w / 2,
-    cy = h / 2;
-  if (i == 0) {
-    g.beginPath();
-    g.arc(cx, cy - 10 * s, 95 * s, 0, 7);
-    g.stroke();
-    g.beginPath();
-    g.moveTo(cx, cy - 80 * s);
-    g.lineTo(cx + 60 * s, cy + 40 * s);
-    g.lineTo(cx - 60 * s, cy + 40 * s);
-    g.closePath();
-    g.fill();
-  }
-  if (i == 1) {
-    for (let k = 0; k < 7; k++) {
-      g.globalAlpha = 0.25 + k * 0.1;
-      g.fillRect(-40 * s + k * 110 * s, 0, 50 * s, h);
-    }
-    g.globalAlpha = 1;
-    g.fillStyle = "#fff";
-    g.fillRect(60 * s, 230 * s, w * 0.5, 10 * s);
-    g.fillRect(60 * s, 260 * s, w * 0.35, 10 * s);
-  }
-  if (i == 2) {
-    g.beginPath();
-    g.arc(cx, cy + 30 * s, 150 * s, 0, 7);
-    g.fill();
-    g.fillStyle = P[0];
-    g.font = `900 ${110 * s}px Helvetica,Arial`;
-    g.textAlign = "center";
-    g.fillText("POSTER", cx, cy + 75 * s);
-  }
-  if (i == 3) {
-    g.beginPath();
-    g.moveTo(cx - 60 * s, 50 * s);
-    g.lineTo(cx - 150 * s, 120 * s);
-    g.lineTo(cx - 110 * s, 170 * s);
-    g.lineTo(cx - 80 * s, 150 * s);
-    g.lineTo(cx - 80 * s, 370 * s);
-    g.lineTo(cx + 80 * s, 370 * s);
-    g.lineTo(cx + 80 * s, 150 * s);
-    g.lineTo(cx + 110 * s, 170 * s);
-    g.lineTo(cx + 150 * s, 120 * s);
-    g.lineTo(cx + 60 * s, 50 * s);
-    g.quadraticCurveTo(cx, 100 * s, cx - 60 * s, 50 * s);
-    g.fillStyle = "#fff";
-    g.fill();
-    g.fillStyle = P[2];
-    g.beginPath();
-    g.arc(cx, 230 * s, 40 * s, 0, 7);
-    g.fill();
-  }
-  if (i == 4) {
-    ["#5b5bd6", "#15171b", "#ff7a59", "#c8ff3d"].forEach((k, n) => {
-      g.fillStyle = k;
-      g.fillRect(50 * s + n * 70 * s, 50 * s, 60 * s, 60 * s);
-    });
-    g.fillStyle = "#15171b";
-    g.font = `200 ${190 * s}px Helvetica,Arial`;
-    g.textAlign = "left";
-    g.fillText("Aa", 50 * s, 310 * s);
-  }
-  if (i == 5) {
-    for (let k = 0; k < 4; k++) {
-      g.globalAlpha = 0.3 + k * 0.2;
-      g.fillRect(70 * s + k * 130 * s, 300 * s - k * 50 * s, 100 * s, 100 * s + k * 50 * s);
-    }
-    g.globalAlpha = 1;
-  }
-  g.fillStyle = i == 1 || i == 2 || i == 4 ? "#15171b" : "#fff";
+  g.fillStyle = "#fff";
   g.textAlign = "left";
   g.font = `600 ${20 * s}px Helvetica,Arial`;
   g.fillText(WORKS[i].t.toUpperCase(), 28 * s, h - 26 * s);
 }
-const TW = 1280,
-  TH = 840;
+const IMGS = WORKS.map((w, n) => {
+  if (!w.img) return null;
+  const i = new Image();
+  i.onload = () => {
+    try {
+      drawArt(CACHE[n], TW, TH, n);
+      D.done = -1;
+    } catch (e) {}
+  };
+  i.src = U(w.img);
+  return i;
+});
 const CACHE = WORKS.map((_, i) => {
   const c = document.createElement("canvas");
   c.width = TW;
@@ -156,227 +84,91 @@ const CACHE = WORKS.map((_, i) => {
   return c;
 });
 
-// ===== Three.js =====
-const cv = document.getElementById("gl"),
-  R = new THREE.WebGLRenderer({ canvas: cv, antialias: true });
-R.setPixelRatio(Math.min(devicePixelRatio, 2));
-R.shadowMap.enabled = true;
-R.shadowMap.type = THREE.PCFSoftShadowMap;
-R.toneMapping = THREE.ACESFilmicToneMapping;
-R.toneMappingExposure = 1.05;
-const S = new THREE.Scene();
-S.background = new THREE.Color(0xeef0f3);
-S.fog = new THREE.Fog(0xeef0f3, 12, 30);
-const cam = new THREE.PerspectiveCamera(35, 1, 0.1, 60);
-{
-  const e = new THREE.Scene();
-  e.background = new THREE.Color(0xc9ced6);
-  const b = (x, y, z, w, h, d, c) => {
-    const m = new THREE.Mesh(
-      new THREE.BoxGeometry(w, h, d),
-      new THREE.MeshBasicMaterial({ color: c }),
-    );
-    m.position.set(x, y, z);
-    e.add(m);
-  };
-  b(0, 9, 0, 14, 0.5, 14, 0xffffff);
-  b(-9, 3, 2, 0.5, 8, 8, 0xffffff);
-  b(9, 3, 2, 0.5, 8, 8, 0xf0f4ff);
-  b(0, 3, 9, 10, 6, 0.5, 0xffffff);
-  b(0, 0.5, -9, 14, 1, 0.5, 0x222831);
-  b(4, 5, 6, 2, 0.3, 6, 0xffffff);
-  S.environment = new THREE.PMREMGenerator(R).fromScene(e).texture;
+// ===== Video frames (reach: 0..R, hold loop: R+1..) =====
+const W0 = 1280,
+  H0 = 720,
+  FPS = 24,
+  R = 24,
+  HN = 20,
+  NF = R + 1 + HN;
+const ANCH = [
+  [856, 507],
+  [859, 505],
+  [864, 502],
+  [869, 500],
+  [875, 497],
+  [881, 495],
+  [886, 491],
+  [893, 486],
+  [898, 480],
+  [903, 474],
+  [1032, 554],
+  [1110, 558],
+  [1170, 550],
+  [1183, 510],
+  [1190, 469],
+  [1195, 428],
+  [1196, 393],
+  [1196, 362],
+  [1196, 334],
+  [1195, 311],
+  [1195, 293],
+  [1195, 280],
+  [1196, 270],
+  [1198, 264],
+  [1201, 261],
+  [1207, 260],
+  [1212, 263],
+  [1218, 266],
+  [1222, 271],
+  [1226, 273],
+  [1230, 275],
+  [1233, 278],
+  [1237, 280],
+  [1240, 282],
+  [1242, 284],
+  [1244, 285],
+  [1246, 284],
+  [1246, 286],
+  [1247, 286],
+  [1248, 285],
+  [1248, 286],
+  [1249, 285],
+  [1249, 286],
+  [1250, 285],
+  [1250, 286],
+];
+const HA = [0, 1].map((k) => ANCH.slice(R + 1).reduce((t, p) => t + p[k], 0) / HN);
+const fr = [];
+let loaded = 0;
+for (let i = 0; i < NF; i++) {
+  const im = new Image();
+  im.onload = () => loaded++;
+  im.src = U("frames/f" + String(i).padStart(3, "0") + ".jpg");
+  fr.push(im);
 }
-S.add(new THREE.HemisphereLight(0xffffff, 0xdde1e7, 0.5));
-const key = new THREE.DirectionalLight(0xffffff, 0.8);
-key.position.set(3, 7, 5);
-key.castShadow = true;
-key.shadow.mapSize.set(2048, 2048);
-key.shadow.radius = 6;
-key.shadow.camera.left = -6;
-key.shadow.camera.right = 6;
-key.shadow.camera.top = 6;
-key.shadow.camera.bottom = -3;
-S.add(key);
-const rim = new THREE.DirectionalLight(0xdfe8ff, 0.5);
-rim.position.set(-4, 3, -4);
-S.add(rim);
-const floor = new THREE.Mesh(
-  new THREE.PlaneGeometry(60, 60),
-  new THREE.ShadowMaterial({ opacity: 0.16 }),
-);
-floor.rotation.x = -Math.PI / 2;
-floor.receiveShadow = true;
-S.add(floor);
-const fb = new THREE.Mesh(
-  new THREE.PlaneGeometry(60, 60),
-  new THREE.MeshBasicMaterial({ color: 0xeef0f3 }),
-);
-fb.rotation.x = -Math.PI / 2;
-fb.position.y = -0.002;
-S.add(fb);
 
-const W = new THREE.MeshPhysicalMaterial({
-  color: 0xffffff,
-  roughness: 0.26,
-  clearcoat: 1,
-  clearcoatRoughness: 0.08,
-  envMapIntensity: 1.1,
-});
-const D = new THREE.MeshPhysicalMaterial({
-  color: 0x101216,
-  roughness: 0.35,
-  metalness: 0.5,
-  clearcoat: 0.6,
-});
-const G = new THREE.MeshStandardMaterial({ color: 0xcfd4db, roughness: 0.3, metalness: 0.85 });
-const V = new THREE.MeshPhysicalMaterial({
-  color: 0x050607,
-  roughness: 0.04,
-  metalness: 0.9,
-  clearcoat: 1,
-});
-const E = new THREE.MeshBasicMaterial({ color: 0x39ff88 });
-const EH = new THREE.MeshBasicMaterial({
-  color: 0x39ff88,
-  transparent: true,
-  opacity: 0.22,
-  blending: THREE.AdditiveBlending,
-  depthWrite: false,
-});
-const sph = new THREE.SphereGeometry(1, 48, 32),
-  cyl = new THREE.CylinderGeometry(1, 1, 1, 40),
-  cone = new THREE.CylinderGeometry(1, 0.8, 1, 40),
-  tor = new THREE.TorusGeometry(1, 0.2, 16, 48);
-function M(geo, mat, p, sc, par) {
-  const m = new THREE.Mesh(geo, mat);
-  m.position.set(...p);
-  m.scale.set(...sc);
-  m.castShadow = mat !== EH;
-  (par || robot).add(m);
-  return m;
-}
-const robot = new THREE.Group();
-robot.scale.setScalar(1.15);
-S.add(robot);
-// pelvis, abdomen, torso
-M(sph, W, [0, 0.98, 0], [0.5, 0.28, 0.37]);
-for (const y of [1.14, 1.22, 1.3]) M(cyl, D, [0, y, 0], [0.3, 0.03, 0.23]);
-M(sph, W, [0, 1.75, 0], [0.62, 0.7, 0.46]);
-M(sph, D, [0, 1.95, 0.36], [0.34, 0.26, 0.12]);
-M(sph, E, [0, 1.95, 0.485], [0.05, 0.05, 0.02]);
-M(tor, G, [0, 2.38, 0], [0.2, 0.2, 0.2]).rotation.x = Math.PI / 2;
-M(cyl, D, [0, 2.46, 0], [0.11, 0.08, 0.11]);
-// legs
-for (const s of [-1, 1]) {
-  M(sph, D, [s * 0.27, 0.9, 0], [0.17, 0.17, 0.17]);
-  M(cone, W, [s * 0.27, 0.66, 0], [0.16, 0.24, 0.16]);
-  M(sph, D, [s * 0.27, 0.42, 0], [0.14, 0.14, 0.14]);
-  M(cone, W, [s * 0.27, 0.26, 0], [0.14, 0.16, 0.14]);
-  M(cyl, G, [s * 0.27, 0.17, 0], [0.145, 0.02, 0.145]);
-  M(sph, W, [s * 0.27, 0.09, 0.1], [0.22, 0.11, 0.38]);
-}
-// head
-const head = new THREE.Group();
-head.position.y = 2.8;
-robot.add(head);
-M(sph, W, [0, 0, 0], [0.46, 0.4, 0.42], head);
-M(sph, V, [0, 0, 0.27], [0.4, 0.23, 0.2], head);
-for (const s of [-1, 1]) {
-  M(sph, E, [s * 0.15, 0.02, 0.455], [0.055, 0.075, 0.02], head);
-  M(sph, EH, [s * 0.15, 0.02, 0.45], [0.1, 0.12, 0.04], head);
-  M(cyl, D, [s * 0.47, 0, 0], [0.12, 0.06, 0.12], head).rotation.z = Math.PI / 2;
-  M(cyl, G, [s * 0.5, 0, 0], [0.07, 0.05, 0.07], head).rotation.z = Math.PI / 2;
-}
-// arms
-const bm = new THREE.MeshBasicMaterial({
-  color: 0x39ff88,
-  transparent: true,
-  opacity: 0.07,
-  blending: THREE.AdditiveBlending,
-  depthWrite: false,
-});
-const arms = {};
-for (const s of [-1, 1]) {
-  const sh = new THREE.Group();
-  sh.position.set(s * 0.82, 2.05, 0);
-  sh.rotation.order = "YXZ";
-  robot.add(sh);
-  M(sph, D, [0, 0, 0], [0.17, 0.17, 0.17], sh);
-  M(sph, W, [s * 0.04, 0.03, 0], [0.2, 0.19, 0.2], sh);
-  M(cone, W, [0, -0.3, 0], [0.1, 0.3, 0.1], sh);
-  M(cyl, G, [0, -0.5, 0], [0.105, 0.012, 0.105], sh);
-  const el = new THREE.Group();
-  el.position.y = -0.6;
-  sh.add(el);
-  M(sph, D, [0, 0, 0], [0.115, 0.115, 0.115], el);
-  M(cone, W, [0, -0.3, 0], [0.095, 0.3, 0.095], el);
-  M(cyl, G, [0, -0.57, 0], [0.085, 0.02, 0.085], el);
-  const hd = new THREE.Group();
-  hd.position.y = -0.64;
-  el.add(hd);
-  M(sph, W, [0, -0.1, 0], [0.13, 0.15, 0.05], hd);
-  M(tor, E, [0, -0.1, 0.04], [0.09, 0.09, 0.09], hd).scale.z = 0.05;
-  M(cyl, bm, [0, -0.1, 0.3], [0.09, 0.3, 0.09], hd).rotation.x = Math.PI / 2;
-  for (let k = -1.5; k <= 1.5; k++) {
-    const f = new THREE.Group();
-    f.position.set(k * 0.07, -0.22, 0.01);
-    f.rotation.x = -0.3;
-    hd.add(f);
-    M(cyl, W, [0, -0.07, 0], [0.026, 0.07, 0.026], f);
-    const j = new THREE.Group();
-    j.position.y = -0.14;
-    j.rotation.x = -0.5;
-    f.add(j);
-    M(cyl, W, [0, -0.06, 0], [0.022, 0.06, 0.022], j);
-    M(sph, W, [0, -0.12, 0], [0.024, 0.024, 0.024], j);
+const cv = document.getElementById("gl"),
+  g = cv.getContext("2d");
+const fx = document.getElementById("fx"),
+  fg = fx.getContext("2d");
+const disp = document.getElementById("disp"),
+  dctx = disp.querySelector("canvas").getContext("2d");
+const D = { ctx: dctx, i: -1, flick: 0, done: -1 };
+let vw, vh, dW, dH, offX, offY;
+function size() {
+  vw = innerWidth;
+  vh = innerHeight;
+  const dpr = Math.min(devicePixelRatio, 2);
+  for (const c of [cv, fx]) {
+    c.width = vw * dpr;
+    c.height = vh * dpr;
   }
-  const th = new THREE.Group();
-  th.position.set(-s * 0.12, -0.05, 0);
-  th.rotation.z = -s * 0.7;
-  hd.add(th);
-  M(cyl, W, [0, -0.08, 0], [0.03, 0.08, 0.03], th);
-  M(sph, W, [0, -0.16, 0], [0.03, 0.03, 0.03], th);
-  // display
-  const dg = new THREE.Group();
-  S.add(dg);
-  const bez = new THREE.Mesh(new THREE.BoxGeometry(2.56, 1.72, 0.07), D);
-  bez.castShadow = true;
-  dg.add(bez);
-  const c = document.createElement("canvas");
-  c.width = TW;
-  c.height = TH;
-  const tex = new THREE.CanvasTexture(c);
-  tex.encoding = THREE.sRGBEncoding;
-  const scr = new THREE.Mesh(
-    new THREE.PlaneGeometry(2.44, 1.6),
-    new THREE.MeshBasicMaterial({ map: tex }),
-  );
-  scr.position.z = 0.04;
-  dg.add(scr);
-  arms[s] = { sh, el, hd, dg, scr, ctx: c.getContext("2d"), tex, ext: 0, tgt: 0, i: -1, flick: 0 };
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  fg.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
-function paint(a) {
-  const g = a.ctx;
-  g.fillStyle = "#05070a";
-  g.fillRect(0, 0, TW, TH);
-  if (a.flick > 0) {
-    const k = a.flick;
-    if (Math.random() > k * 0.7) g.drawImage(CACHE[a.i], (Math.random() - 0.5) * 60 * k, 0);
-    else
-      for (let n = 0; n < 260; n++) {
-        const v = (Math.random() * 255) | 0;
-        g.fillStyle = `rgb(${v},${v},${v})`;
-        g.fillRect(Math.random() * TW, Math.random() * TH, 48, 6);
-      }
-    g.fillStyle = "rgba(57,255,136,.35)";
-    g.fillRect(0, Math.random() * TH, TW, 12 + Math.random() * 40);
-  } else g.drawImage(CACHE[a.i], 0, 0);
-  g.fillStyle = "rgba(0,0,0,.1)";
-  for (let y = 0; y < TH; y += 6) g.fillRect(0, y, TW, 2);
-  a.tex.needsUpdate = true;
-  a.done = a.flick > 0 ? -1 : a.i;
-}
+addEventListener("resize", size);
+size();
 
 // ===== Scroll / state =====
 const N = WORKS.length,
@@ -386,14 +178,24 @@ const cap = document.getElementById("cap"),
   sc = document.getElementById("sc"),
   dots = document.getElementById("dots");
 for (let i = 0; i < SEC; i++) dots.appendChild(document.createElement("i"));
-let idx = -1;
+let idx = -1,
+  side = -1,
+  tSide = -1,
+  tExt = false,
+  tProj = -1,
+  pos = 0,
+  holdT = 0,
+  show = 0,
+  dx = 0,
+  dy = 0,
+  dw = 300,
+  dh = 200;
 function setIdx(n) {
   if (n === idx) return;
   idx = n;
   const p = n - 1;
   [...dots.children].forEach((d, i) => d.classList.toggle("a", i === n));
   hero.style.opacity = sc.style.opacity = n === 0 ? 1 : 0;
-  for (const s of [-1, 1]) arms[s].tgt = 0;
   cap.classList.add("o");
   setTimeout(() => {
     const q = cap.children;
@@ -410,39 +212,43 @@ function setIdx(n) {
     }
   }, 300);
   if (p >= 0 && p < N) {
-    const s = p % 2 === 0 ? 1 : -1,
-      a = arms[s];
-    a.tgt = 1;
-    a.i = p;
-    a.flick = 1.2;
-  }
-  if (p >= N) {
-    arms[-1].tgt = arms[1].tgt = 0.3;
+    tExt = true;
+    tProj = p;
+    tSide = -1;
+  } else {
+    tExt = false;
   }
 }
-addEventListener(
-  "scroll",
-  () => setIdx(Math.max(0, Math.min(SEC - 1, Math.round(scrollY / innerHeight)))),
-  { passive: true },
-);
-const fx = document.getElementById("fx"),
-  fg = fx.getContext("2d");
-function size() {
-  const w = innerWidth,
-    h = innerHeight,
-    dpr = Math.min(devicePixelRatio, 2);
-  R.setSize(w, h, false);
-  fx.width = w * dpr;
-  fx.height = h * dpr;
-  fg.setTransform(dpr, 0, 0, dpr, 0, 0);
-  cam.aspect = w / h;
-  cam.position.set(0, 2.3, Math.min(22, Math.max(6.5, 1.4 + 3.5 / (Math.tan(0.1527) * (w / h)))));
-  cam.lookAt(0, 1.85, 0);
-  cam.updateProjectionMatrix();
-  cam.updateMatrixWorld();
+addEventListener("scroll", () => setIdx(Math.max(0, Math.min(SEC - 1, Math.round(scrollY / innerHeight)))), {
+  passive: true,
+});
+
+const toScreen = (u, v) => {
+  const xs = offX + u * dW;
+  return [side < 0 ? vw - xs : xs, offY + v * dH];
+};
+
+// ===== Display painting (flicker) =====
+function paint(a) {
+  const c = a.ctx;
+  c.fillStyle = "#05070a";
+  c.fillRect(0, 0, TW, TH);
+  if (a.flick > 0) {
+    const k = a.flick;
+    if (Math.random() > k * 0.7) c.drawImage(CACHE[a.i], (Math.random() - 0.5) * 60 * k, 0);
+    else
+      for (let n = 0; n < 260; n++) {
+        const v = (Math.random() * 255) | 0;
+        c.fillStyle = `rgb(${v},${v},${v})`;
+        c.fillRect(Math.random() * TW, Math.random() * TH, 48, 6);
+      }
+    c.fillStyle = "rgba(57,255,136,.35)";
+    c.fillRect(0, Math.random() * TH, TW, 12 + Math.random() * 40);
+  } else c.drawImage(CACHE[a.i], 0, 0);
+  c.fillStyle = "rgba(0,0,0,.1)";
+  for (let y = 0; y < TH; y += 6) c.fillRect(0, y, TW, 2);
+  a.done = a.flick > 0 ? -1 : a.i;
 }
-addEventListener("resize", size);
-size();
 
 // ===== Invisible barrier: pixel squares =====
 const PX = [];
@@ -450,31 +256,16 @@ let mx = -999,
   my = -999,
   pmx = -999,
   pmy = -999;
-const pr = (x, y, z) => {
-  const v = new THREE.Vector3(x, y, z).project(cam);
-  return [(v.x * 0.5 + 0.5) * innerWidth, (-v.y * 0.5 + 0.5) * innerHeight];
-};
 const gs = () => Math.random() + Math.random() + Math.random() - 1.5;
 const COL = ["#15171b", "#15171b", "#8a929c", "#2bd66f"];
 function shapes() {
-  const c = pr(0, 2.1, 0),
-    r = pr(1.45, 2.1, 0),
-    t = pr(0, 4.35, 0),
-    out = [{ e: 1, cx: c[0], cy: c[1], rx: Math.abs(r[0] - c[0]), ry: Math.abs(c[1] - t[1]) }];
-  for (const s of [-1, 1]) {
-    const a = arms[s];
-    if (a.dg.visible && a.ext > 0.6) {
-      const p = a.dg.position,
-        u = pr(p.x - 1.45, p.y + 1, p.z),
-        l = pr(p.x + 1.45, p.y - 1, p.z);
-      out.push({
-        cx: (u[0] + l[0]) / 2,
-        cy: (u[1] + l[1]) / 2,
-        hw: Math.abs(l[0] - u[0]) / 2,
-        hh: Math.abs(l[1] - u[1]) / 2,
-      });
-    }
+  const c = toScreen(0.49, 0.52),
+    out = [{ e: 1, cx: c[0], cy: c[1], rx: 0.2 * dW, ry: 0.64 * dH }];
+  if (pos > R * 0.4) {
+    const a = toScreen(0.79, 0.5);
+    out.push({ cx: a[0], cy: a[1], hw: 0.19 * dW, hh: 0.19 * dH });
   }
+  if (show > 0.5) out.push({ cx: dx, cy: dy, hw: dw / 2 + 14, hh: dh / 2 + 14 });
   return out;
 }
 function sdf(sh, x, y) {
@@ -482,11 +273,11 @@ function sdf(sh, x, y) {
   for (const s of sh) {
     let d;
     if (s.e) {
-      const dx = x - s.cx,
-        dy = y - s.cy,
-        k = Math.hypot(dx / s.rx, dy / s.ry) || 1e-6,
-        g = Math.hypot(dx / (s.rx * s.rx), dy / (s.ry * s.ry)) / k;
-      d = (k - 1) / (g || 1e-6);
+      const ddx = x - s.cx,
+        ddy = y - s.cy,
+        k = Math.hypot(ddx / s.rx, ddy / s.ry) || 1e-6,
+        gg = Math.hypot(ddx / (s.rx * s.rx), ddy / (s.ry * s.ry)) / k;
+      d = (k - 1) / (gg || 1e-6);
     } else {
       const qx = Math.abs(x - s.cx) - s.hw,
         qy = Math.abs(y - s.cy) - s.hh;
@@ -524,12 +315,13 @@ function burst(sh, x, y, d, spread, n) {
   }
   if (PX.length > 1200) PX.splice(0, PX.length - 1200);
 }
+const modal = document.getElementById("m");
 addEventListener("pointermove", (e) => {
   pmx = mx;
   pmy = my;
   mx = e.clientX;
   my = e.clientY;
-  if (pmx < -900 || document.getElementById("m").classList.contains("on")) return;
+  if (pmx < -900 || modal.classList.contains("on") || !dW) return;
   const sp = Math.hypot(mx - pmx, my - pmy);
   if (sp < 0.5) return;
   const sh = shapes(),
@@ -542,14 +334,13 @@ addEventListener("pointermove", (e) => {
     if (prev < 0 !== d < 0) burst(sh, x, y, d, 70, 14);
     else if (d > -30 && d < 100) {
       const w = d >= 0 ? 1 - d / 100 : 1 + d / 30;
-      if (Math.random() < w * 0.85)
-        burst(sh, x, y, d, 45, 1 + (w > 0.55 ? 1 : 0) + (sp > 40 ? 1 : 0));
+      if (Math.random() < w * 0.85) burst(sh, x, y, d, 45, 1 + (w > 0.55 ? 1 : 0) + (sp > 40 ? 1 : 0));
     }
     prev = d;
   }
 });
 function fxDraw(dt) {
-  fg.clearRect(0, 0, innerWidth, innerHeight);
+  fg.clearRect(0, 0, vw, vh);
   for (let i = PX.length - 1; i >= 0; i--) {
     const p = PX[i];
     p.l -= dt;
@@ -571,75 +362,100 @@ function fxDraw(dt) {
   fg.globalAlpha = 1;
 }
 
-const clock = new THREE.Clock(),
-  L = (a, b, k) => a + (b - a) * k;
-function loop() {
+// ===== Main loop =====
+let last = performance.now();
+const ld = document.getElementById("ld");
+function loop(now) {
   requestAnimationFrame(loop);
-  const dt = Math.min(clock.getDelta(), 0.05),
-    t = clock.elapsedTime;
-  let side = 0;
-  const v = new THREE.Vector3();
-  for (const s of [-1, 1]) {
-    const a = arms[s];
-    a.ext = L(a.ext, a.tgt, 0.06);
-    a.sh.rotation.x = -1.2 * a.ext + Math.sin(t * 1.4 + s) * 0.02 * a.ext;
-    a.sh.rotation.y = s * 0.8 * a.ext;
-    a.el.rotation.x = -0.5 * a.ext;
-    if (a.tgt === 1) side = s;
-    a.dg.visible = a.ext > 0.4;
-    a.dg.scale.setScalar(Math.max(0.001, Math.min(1, (a.ext - 0.35) / 0.65)));
-    if (a.dg.visible) {
-      robot.updateMatrixWorld(true);
-      a.hd.getWorldPosition(v);
-      a.dg.position.set(v.x + s * 0.25, v.y + 0.95 + Math.sin(t * 1.8) * 0.03, v.z + 0.1);
-      a.dg.lookAt(cam.position.x * 0.3, cam.position.y, cam.position.z);
-      if (a.flick > 0) a.flick -= dt;
-      if (a.i >= 0 && a.ext > 0.5 && (a.flick > 0 || a.done !== a.i)) paint(a);
-    }
+  const dt = Math.min((now - last) / 1000, 0.05);
+  last = now;
+  if (loaded < NF) {
+    ld.textContent = "Loading " + Math.round((loaded / NF) * 100) + "%";
+    return;
   }
-  head.rotation.y = L(head.rotation.y, side * 0.5, 0.07);
-  head.rotation.x = L(head.rotation.x, side ? 0.08 : 0, 0.07);
-  robot.rotation.y = L(robot.rotation.y, side * 0.14, 0.05);
-  robot.position.y = Math.sin(t * 1.2) * 0.02;
-  R.render(S, cam);
+  ld.style.opacity = 0;
+  // animation state: retract -> flip -> reach -> hold
+  if (pos > 0 && (!tExt || side !== tSide)) pos = Math.max(0, pos - dt * FPS * 1.15);
+  else if (tExt && side === tSide) pos = Math.min(R, pos + dt * FPS);
+  if (pos === 0 && tExt) side = tSide;
+  const holding = tExt && side === tSide && pos >= R - 0.01;
+  let fi = Math.floor(pos);
+  if (holding) {
+    holdT += dt;
+    const k = (holdT * FPS * 0.8) % (2 * (HN - 1));
+    fi = R + 1 + Math.min(HN - 1, Math.round(k < HN ? k : 2 * (HN - 1) - k));
+  } else holdT = 0;
+  // draw video frame (cover, mirrored for the left hand)
+  const t = now / 1000,
+    a = vw / vh,
+    s = (a >= 1.2 ? Math.max(vw / W0, vh / H0) : (vw * 1.95) / W0) * (1 + 0.004 * Math.sin(t * 1.2));
+  dW = W0 * s;
+  dH = H0 * s;
+  const cu = Math.min(Math.max(0.93 - vw / (2 * dW), 0.5), 1 - vw / (2 * dW));
+  offX = vw / 2 - cu * dW;
+  offY = dH >= vh ? (vh - dH) / 2 : vh - dH;
+  const im = fr[fi];
+  g.save();
+  if (side < 0) {
+    g.translate(vw, 0);
+    g.scale(-1, 1);
+  }
+  g.drawImage(im, offX, offY, dW, dH);
+  if (offY > 0) g.drawImage(im, 0, 0, W0, 2, offX, 0, dW, offY + 1);
+  g.restore();
+  // display above the palm
+  show += ((holding ? 1 : 0) - show) * 0.12;
+  if (holding && D.i !== tProj) {
+    D.i = tProj;
+    D.flick = 1.2;
+    D.done = -1;
+  }
+  dw = Math.min(520, Math.max(230, dW * 0.27));
+  dh = dw / (TW / TH);
+  const an = holding ? HA : ANCH[fi],
+    P = toScreen(an[0] / W0, an[1] / H0),
+    dir = side > 0 ? -1 : 1;
+  let tx = P[0] + dir * 110 * s,
+    ty = P[1] + 34 * s - dh / 2;
+  tx = Math.min(Math.max(tx, dw / 2 + 20), vw - dw / 2 - 36);
+  ty = Math.max(ty, 76 + dh / 2);
+  if (show < 0.05) {
+    dx = tx;
+    dy = ty;
+  } else {
+    dx += (tx - dx) * 0.2;
+    dy += (ty - dy) * 0.2;
+  }
+  disp.style.width = dw + "px";
+  disp.style.left = dx + "px";
+  disp.style.top = dy + "px";
+  disp.style.opacity = show;
+  disp.style.pointerEvents = show > 0.85 ? "auto" : "none";
+  disp.style.transform = `translate(-50%,-50%) perspective(900px) rotateY(${side > 0 ? -12 : 12}deg) rotateX(3deg) scale(${0.85 + 0.15 * show})`;
+  if (show > 0.02 && D.i >= 0) {
+    if (D.flick > 0) D.flick -= dt;
+    if (D.flick > 0 || D.done !== D.i) paint(D);
+  }
   fxDraw(dt);
 }
-loop();
+requestAnimationFrame(loop);
 
 // ===== Click on display =====
-const ray = new THREE.Raycaster(),
-  mv = new THREE.Vector2(),
-  m = document.getElementById("m");
-function pick(e) {
-  mv.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
-  ray.setFromCamera(mv, cam);
-  for (const s of [-1, 1]) {
-    const a = arms[s];
-    if (a.tgt === 1 && a.ext > 0.85 && ray.intersectObject(a.scr).length) return a;
-  }
-  return null;
-}
-cv.addEventListener("pointermove", (e) => {
-  cv.style.cursor = pick(e) ? "pointer" : "default";
-});
-cv.addEventListener("click", (e) => {
-  const a = pick(e);
-  if (!a) return;
+disp.addEventListener("click", () => {
+  if (D.i < 0) return;
   const mc = document.getElementById("mc"),
-    im = IMGS[a.i];
+    im = IMGS[D.i];
   mc.height =
-    im && im.naturalWidth
-      ? Math.min(1000, Math.round((1200 * im.naturalHeight) / im.naturalWidth))
-      : 800;
-  drawArt(mc, 1200, mc.height, a.i);
-  m.querySelector("h3").textContent = WORKS[a.i].t;
-  m.querySelector("p").textContent = WORKS[a.i].d;
-  m.classList.add("on");
+    im && im.naturalWidth ? Math.min(1000, Math.round((1200 * im.naturalHeight) / im.naturalWidth)) : 800;
+  drawArt(mc, 1200, mc.height, D.i);
+  modal.querySelector("h3").textContent = WORKS[D.i].t;
+  modal.querySelector("p").textContent = WORKS[D.i].d;
+  modal.classList.add("on");
 });
-const close = () => m.classList.remove("on");
+const close = () => modal.classList.remove("on");
 document.getElementById("x").onclick = close;
-m.addEventListener("click", (e) => {
-  if (e.target === m) close();
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) close();
 });
 addEventListener("keydown", (e) => {
   if (e.key === "Escape") close();
