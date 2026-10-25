@@ -165,6 +165,8 @@ window.I18N = {
     "contact.text": "Open to new roles and conversations. I reply fast.",
     "contact.copy": "Copy address",
     "contact.copied": "Copied",
+    "contact.cv": "Request my CV",
+    "contact.cvhref": "mailto:klette.j@gmx.de?subject=CV%20request&body=Hi%20Jennifer%2C%0A%0Acould%20you%20send%20me%20your%20CV%3F%0A%0A",
     "foot.imprint": "Legal notice",
     "foot.privacy": "Privacy",
     "foot.top": "Back to top"
@@ -331,6 +333,8 @@ window.I18N = {
     "contact.text": "Offen für neue Aufgaben und Gespräche. Ich antworte schnell.",
     "contact.copy": "Adresse kopieren",
     "contact.copied": "Kopiert",
+    "contact.cv": "Lebenslauf anfragen",
+    "contact.cvhref": "mailto:klette.j@gmx.de?subject=Anfrage%20Lebenslauf&body=Hallo%20Jennifer%2C%0A%0Akannst%20du%20mir%20deinen%20Lebenslauf%20schicken%3F%0A%0A",
     "foot.imprint": "Impressum",
     "foot.privacy": "Datenschutz",
     "foot.top": "Nach oben"

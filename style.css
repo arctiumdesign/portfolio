@@ -568,6 +568,15 @@ svg.ico.line { fill: none; }
   overflow-wrap: anywhere;
 }
 .mail:hover { background: var(--c-6); transform: translateX(8px); }
+.cv {
+  display: flex; width: fit-content; align-items: center; gap: .6rem; margin-top: 1.25rem;
+  padding: .75rem 1.2rem; border-radius: 10px; text-decoration: none;
+  font-family: var(--display); font-weight: 600; font-size: 1.05rem;
+  border: 1.5px solid var(--c-5); color: var(--c-6);
+  transition: background .3s var(--ease), color .3s var(--ease);
+}
+.cv svg { width: 1.25rem; height: 1.25rem; }
+.cv:hover, .cv:focus-visible { background: var(--c-5); color: var(--c-1); }
 .copy {
   display: block; margin-top: 1.25rem; background: none; border: 0; padding: .4rem 0;
   font-family: var(--display); font-size: .95rem; color: var(--c-5); text-decoration: underline; text-underline-offset: 4px;
