@@ -439,6 +439,10 @@ ol, ul { list-style: none; }
 .detail-visual .device { position: relative; left: auto; right: auto; top: auto; translate: none; width: min(100%, 860px, 72vh); }
 .detail-visual .device img, .detail-visual .device video { max-height: none; max-width: none; box-shadow: none; border-radius: 0; }
 .detail-visual .device img { width: 100%; height: 100%; }
+/* several images in one entry: a sharp grid instead of a blurry collage */
+.detail-visual .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.75rem, 2vw, 1.5rem); width: 100%; }
+.detail-visual .gallery img { width: 100%; height: auto; max-height: none; box-shadow: none; border-radius: 0; }
+@media (max-width: 700px) { .detail-visual .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .detail-visual .device video { width: 81.25%; height: 68.4%; }
 .card:hover .cover, .card:focus-visible .cover { transform: translateY(-8px) scale(1.02); }
 

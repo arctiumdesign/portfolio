@@ -290,7 +290,18 @@
       dVisual.innerHTML = "";
       const device = $(".device", cover);
       const img = $("img", cover);
-      if (device) {
+      if (card.dataset.gallery) {
+        const grid = document.createElement("div");
+        grid.className = "gallery";
+        card.dataset.gallery.split(",").forEach((src) => {
+          const g = document.createElement("img");
+          g.src = src.trim();
+          g.alt = "";
+          g.loading = "lazy";
+          grid.appendChild(g);
+        });
+        dVisual.appendChild(grid);
+      } else if (device) {
         const clone = device.cloneNode(true);
         dVisual.appendChild(clone);
         const v = $("video", clone);
