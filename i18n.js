@@ -17,8 +17,8 @@ window.I18N = {
     "lang.label": "Language",
 
     "hero.hello": "Hi, I'm Jenni.",
-    "hero.title": "Centimeters to pixels,<br>in nine years.",
-    "hero.lede": "Graphic and media designer. I shape brands, hotel interfaces and everything printed around them. Right now as Senior Media Design Manager at SuitePad.",
+    "hero.title": "From centimetres<br>to pixels.",
+    "hero.lede": "For nine years I have worked as a media designer in print and on the web. At SuitePad, as Senior Media Design Manager, I have brought over 200 hotels onto tablets, each one matched to its own branding guidelines.",
     "hero.hint": "Keep scrolling, the fan opens.",
     "fan.label": "What I work on",
     "fan.1": "Brand identity",
@@ -184,8 +184,8 @@ window.I18N = {
     "lang.label": "Sprache",
 
     "hero.hello": "Hallo, ich bin Jenni.",
-    "hero.title": "Vom Centimeter zum Pixel,<br>in 9 Jahren.",
-    "hero.lede": "Grafik- und Mediendesignerin. Ich gestalte Marken, Hotel-Oberflächen und alles Gedruckte drumherum. Aktuell als Senior Media Design Manager bei SuitePad.",
+    "hero.title": "Vom Zentimeter<br>zum Pixel.",
+    "hero.lede": "Seit neun Jahren bin ich als Mediengestalterin im Print und im Webbereich tätig. Bei SuitePad habe ich als Senior Media Design Manager über 200 Hotels auf Tablets gebracht, jedes abgestimmt auf die individuellen Branding Guidelines.",
     "hero.hint": "Weiter scrollen, der Fächer öffnet sich.",
     "fan.label": "Woran ich arbeite",
     "fan.1": "Markenidentität",

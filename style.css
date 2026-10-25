@@ -259,8 +259,10 @@ ol, ul { list-style: none; }
     grid-template-columns: 1fr; align-content: center; gap: 2.2rem;
     padding-top: 5.5rem;
   }
-  .fan { --h: clamp(3.2rem, 14vw, 4.6rem); --a1: 10deg; max-width: none; }
-  .hero h1 { font-size: clamp(2.6rem, 12vw, 4.4rem); }
+  .fan { --h: clamp(3.2rem, 14vw, 4.6rem); --a1: 10deg; max-width: 440px; margin-top: min(32%, 9rem); }
+  .hero h1 { font-size: clamp(2.4rem, 11vw, 4.4rem); }
+  .hero-lede { margin-top: 1.1rem; font-size: .98rem; line-height: 1.55; }
+  .hero-hello { margin-bottom: .6rem; }
   .hero-hint { display: none; }
   .pill i { display: none; }
 }
