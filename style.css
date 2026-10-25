@@ -155,12 +155,20 @@ ol, ul { list-style: none; }
 .lang button[aria-pressed="true"] { background: var(--c-6); color: var(--c-1); opacity: 1; }
 .lang img { width: 1.05rem; height: 1.05rem; border-radius: 50%; object-fit: cover; }
 
+/* phones: the section links move into a bar at the bottom, in thumb reach */
 @media (max-width: 760px) {
-  .nav a:not(.nav-cta) { display: none; }
   .brand-sub { display: none; }
+  .nav {
+    position: fixed; left: 50%; translate: -50% 0;
+    bottom: max(.75rem, env(safe-area-inset-bottom));
+    background: rgba(5, 31, 32, .82);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  }
+  .nav a { padding: .55rem .75rem; font-size: .88rem; white-space: nowrap; }
+  body { padding-bottom: 4.5rem; }
 }
-@media (max-width: 460px) {
-  .nav { display: none; }
+@media (max-width: 360px) {
+  .nav a { padding: .5rem .55rem; font-size: .82rem; }
 }
 
 /* ==========================================================

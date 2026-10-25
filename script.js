@@ -222,6 +222,8 @@
     const probe = new Image();
     probe.onload = () => {
       img.src = img.dataset.src;
+      const name = img.closest(".card") && img.closest(".card").querySelector(".card-meta b");
+      if (name) img.alt = name.textContent;
       img.hidden = false;
       setupWork();
       update();
