@@ -103,7 +103,7 @@ window.I18N = {
     "p.cityinfo.t1": "Printed brochure and city magazine. One of my first big layout jobs.",
     "dialog.close": "Close",
 
-    "tools.title": "What I reach for.",
+    "tools.title": "Knowledge and Tools",
     "tools.default": "Hover or tap a tool to see what I do with it.",
     "t.ai.name": "Illustrator",
     "t.ai.tip": "Logos, icon sets, vector illustrations and print-ready artwork.",
@@ -246,7 +246,7 @@ window.I18N = {
     "p.cityinfo.t1": "Gedruckte Broschüre und Stadtmagazin. Eine meiner ersten großen Layout-Aufgaben.",
     "dialog.close": "Schließen",
 
-    "tools.title": "Womit ich arbeite.",
+    "tools.title": "Kenntnisse & Fähigkeiten",
     "tools.default": "Tool antippen oder darüberfahren, dann siehst du, was ich damit mache.",
     "t.ai.name": "Illustrator",
     "t.ai.tip": "Logos, Icon-Sets, Vektorillustrationen und druckfertige Artworks.",
