@@ -536,7 +536,7 @@ svg.ico.line { fill: none; }
 .mail {
   display: inline-block; margin-top: 2.5rem; text-decoration: none;
   font-family: var(--display); font-weight: 600; letter-spacing: -.025em;
-  font-size: clamp(1.2rem, 3.6vw, 2.9rem);
+  font-size: clamp(1.2rem, 2.6vw, 2.9rem)
   padding: .5em 1.2em; border-radius: 10px;
   background: var(--c-5); color: var(--c-1);
   transition: background .3s var(--ease), transform .4s var(--ease);
