@@ -1,0 +1,29 @@
+/* Legal pages (Impressum, Datenschutz). Loaded after style.css. */
+.legal { max-width: 46rem; margin: 0 auto; padding: 8rem var(--pad) 5rem; }
+.legal h1 {
+  font-family: var(--display); font-weight: 700; letter-spacing: -.03em; line-height: 1;
+  font-size: clamp(2.4rem, 6vw, 4.2rem); margin-bottom: .35em; text-wrap: balance;
+}
+.legal h2 {
+  font-family: var(--display); font-weight: 650; letter-spacing: -.015em; line-height: 1.15;
+  font-size: 1.35rem; margin: 2.4rem 0 .6rem; color: var(--c-6);
+}
+.legal p, .legal li, .legal address { color: rgba(218, 241, 222, .9); max-width: 40em; }
+.legal p + p { margin-top: .8rem; }
+.legal address { font-style: normal; }
+.legal ul { list-style: disc; padding-left: 1.25rem; margin-top: .5rem; }
+.legal li + li { margin-top: .35rem; }
+.legal a { text-decoration: underline; text-decoration-color: var(--c-5); text-underline-offset: 3px; }
+.legal a:hover { text-decoration-color: var(--c-6); }
+.legal .meta { font-family: var(--display); color: var(--c-5); font-size: .95rem; }
+.legal .note {
+  margin-top: 2rem; padding: 1rem 1.2rem; border-radius: 10px;
+  border: 1px dashed rgba(142, 182, 155, .55); background: rgba(142, 182, 155, .1);
+  font-size: .95rem;
+}
+
+/* marker for the spots you still have to fill in. Delete the <mark> tags when done */
+.todo { background: #ffd54a; color: #1a1a1a; padding: .05em .4em; border-radius: 4px; font-family: var(--display); font-size: .92em; }
+
+/* one language at a time, German by default (no JavaScript) */
+html[lang="de"] [data-l="en"], html[lang="en"] [data-l="de"] { display: none !important; }
