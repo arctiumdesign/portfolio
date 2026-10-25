@@ -65,6 +65,8 @@ window.I18N = {
     "work.prev": "Previous work sample",
     "work.next": "Next work sample",
 
+    "c.cloning.name": "Cloning templates",
+    "c.cloning.meta": "SuitePad · demo installation",
     "c.brochure.name": "SuitePad brochure",
     "c.brochure.meta": "2023 · A5 · flip through it",
     "c.whitepaper.name": "Whitepapers",
@@ -85,6 +87,11 @@ window.I18N = {
     "c.vfl.meta": "2017 – 2019 · Sitesmedia",
     "c.vkfoto.name": "Business card, photographer",
     "c.vkfoto.meta": "Training years",
+
+    "p.cloning.when": "SuitePad · demo installation",
+    "p.cloning.title": "Cloning templates",
+    "p.cloning.t1": "Built cloning templates to simplify and speed up the setup of new SuitePad installations.",
+    "p.cloning.t2": "This showcase installation for clients shows the result: a modern, UI/UX-friendly layout and design, running on the device itself.",
 
     "p.brochure.when": "2023 · A5 · 19 pages",
     "p.brochure.title": "SuitePad brochure",
@@ -230,6 +237,8 @@ window.I18N = {
     "work.prev": "Vorherige Arbeitsprobe",
     "work.next": "Nächste Arbeitsprobe",
 
+    "c.cloning.name": "Cloning Templates",
+    "c.cloning.meta": "SuitePad · Vorzeige-Installation",
     "c.brochure.name": "SuitePad-Broschüre",
     "c.brochure.meta": "2023 · A5 · zum Durchblättern",
     "c.whitepaper.name": "Whitepapers",
@@ -250,6 +259,11 @@ window.I18N = {
     "c.vfl.meta": "2017 – 2019 · Sitesmedia",
     "c.vkfoto.name": "Visitenkarte Fotograf",
     "c.vkfoto.meta": "Ausbildungszeit",
+
+    "p.cloning.when": "SuitePad · Vorzeige-Installation",
+    "p.cloning.title": "Cloning Templates",
+    "p.cloning.t1": "Erstellung von Cloning Templates zur Vereinfachung und Beschleunigung neuer SuitePad-Installationen.",
+    "p.cloning.t2": "Diese Vorzeige-Installation für Kunden zeigt das Ergebnis: ein modernes, UI/UX-freundliches Layout und Design, direkt auf dem Gerät.",
 
     "p.brochure.when": "2023 · A5 · 19 Seiten",
     "p.brochure.title": "SuitePad-Broschüre",

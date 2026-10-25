@@ -288,8 +288,14 @@
       const cover = $(".cover", card);
       dVisual.className = "detail-visual " + cover.className.replace("cover", "").trim();
       dVisual.innerHTML = "";
+      const device = $(".device", cover);
       const img = $("img", cover);
-      if (img && !img.hidden) {
+      if (device) {
+        const clone = device.cloneNode(true);
+        dVisual.appendChild(clone);
+        const v = $("video", clone);
+        if (v) { v.muted = true; v.play().catch(() => {}); }
+      } else if (img && !img.hidden) {
         const clone = document.createElement("img");
         clone.src = img.src;
         clone.alt = t(`p.${openProject}.title`);
