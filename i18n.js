@@ -31,8 +31,7 @@ window.I18N = {
     "num.label": "In numbers",
     "num.1": "years in design, from print to digital",
     "num.2": "hotels set up in SuitePad",
-    "num.3": "less time on automated workflow tasks",
-    "num.4": "languages in one agency brochure",
+     "num.3": "working languages: English and German",
 
     "journey.title": "From magazine layouts to over 200 hotel tablets.",
     "journey.text": "Scroll through my journey. Each milestone lights up as you reach it.",
@@ -175,8 +174,7 @@ window.I18N = {
     "num.label": "In Zahlen",
     "num.1": "Jahre im Design, von Print bis digital",
     "num.2": "Hotels in SuitePad aufgesetzt",
-    "num.3": "weniger Zeitaufwand durch automatisierte Workflows",
-    "num.4": "Sprachen in einer Agentur-Broschüre",
+   "num.3": "Arbeitssprachen: Englisch und Deutsch",
 
     "journey.title": "Von Magazin-Layouts zu über 200 Hotel-Tablets.",
     "journey.text": "Scrolle den Weg entlang. Jede Station leuchtet auf, sobald du sie erreichst.",
