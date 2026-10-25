@@ -72,8 +72,7 @@
       <ul>
         <li><b data-count="9">9</b><span data-i18n="num.1"></span></li>
         <li><b data-count="200" data-suffix="+">200+</b><span data-i18n="num.2"></span></li>
-        <li><b data-count="75" data-suffix="%">75%</b><span data-i18n="num.3"></span></li>
-        <li><b data-count="3">3</b><span data-i18n="num.4"></span></li>
+        <li><b data-count="2">2</b><span data-i18n="num.3"></span></li>
       </ul>
     </section>
 
@@ -86,9 +85,40 @@
 
       <ol class="path">
         <li class="stop">
-          <time data-i18n="s1.time"></time>
-          <h3 data-i18n="s1.title"></h3>
-          <p data-i18n="s1.text"></p>
+          <time data-i18n="s7.time"></time>
+          <h3 data-i18n="s7.title"></h3>
+          <p data-i18n="s7.text"></p>
+        </li>
+        <li class="stop has-branch">
+          <time data-i18n="s6.time"></time>
+          <h3 data-i18n="s6.title"></h3>
+          <p data-i18n="s6.text"></p>
+          <div class="branch">
+            <div class="branch-card">
+              <time data-i18n="leave2.time"></time>
+              <h4 data-i18n="leave2.title"></h4>
+              <p data-i18n="leave2.text"></p>
+            </div>
+            <span class="branch-link" aria-hidden="true"></span>
+          </div>
+        </li>
+        <li class="stop">
+          <time data-i18n="s5.time"></time>
+          <h3 data-i18n="s5.title"></h3>
+          <p data-i18n="s5.text"></p>
+        </li>
+        <li class="stop has-branch">
+          <time data-i18n="s3.time"></time>
+          <h3 data-i18n="s3.title"></h3>
+          <p data-i18n="s3.text"></p>
+          <div class="branch">
+            <div class="branch-card">
+              <time data-i18n="leave1.time"></time>
+              <h4 data-i18n="leave1.title"></h4>
+              <p data-i18n="leave1.text"></p>
+            </div>
+            <span class="branch-link" aria-hidden="true"></span>
+          </div>
         </li>
         <li class="stop">
           <time data-i18n="s2.time"></time>
@@ -96,29 +126,9 @@
           <p data-i18n="s2.text"></p>
         </li>
         <li class="stop">
-          <time data-i18n="s3.time"></time>
-          <h3 data-i18n="s3.title"></h3>
-          <p data-i18n="s3.text"></p>
-        </li>
-        <li class="stop">
-          <time data-i18n="s4.time"></time>
-          <h3 data-i18n="s4.title"></h3>
-          <p data-i18n="s4.text"></p>
-        </li>
-        <li class="stop">
-          <time data-i18n="s5.time"></time>
-          <h3 data-i18n="s5.title"></h3>
-          <p data-i18n="s5.text"></p>
-        </li>
-        <li class="stop">
-          <time data-i18n="s6.time"></time>
-          <h3 data-i18n="s6.title"></h3>
-          <p data-i18n="s6.text"></p>
-        </li>
-        <li class="stop">
-          <time data-i18n="s7.time"></time>
-          <h3 data-i18n="s7.title"></h3>
-          <p data-i18n="s7.text"></p>
+          <time data-i18n="s1.time"></time>
+          <h3 data-i18n="s1.title"></h3>
+          <p data-i18n="s1.text"></p>
         </li>
       </ol>
     </section>
@@ -225,7 +235,11 @@
 
   <footer class="foot">
     <span>© <span data-year>2026</span> Jennifer Klette</span>
-    <a href="#top" data-i18n="foot.top">Back to top</a>
+    <span class="foot-links">
+      <a href="impressum.html" data-i18n="foot.imprint">Legal notice</a>
+      <a href="datenschutz.html" data-i18n="foot.privacy">Privacy</a>
+      <a href="#top" data-i18n="foot.top">Back to top</a>
+    </span>
   </footer>
 
   <!-- FLIPBOOK (SuitePad brochure) -->

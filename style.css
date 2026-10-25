@@ -304,9 +304,13 @@ ol, ul { list-style: none; }
 .journey h2 { font-size: clamp(2.2rem, 4.6vw, 4rem); }
 .journey-head p { margin-top: 1.25rem; color: var(--c-5); max-width: 24em; }
 
-.path { --pad-l: clamp(2rem, 4vw, 3.25rem); position: relative; padding-left: var(--pad-l); --prog: 0; }
+.path {
+  --pad-l: clamp(2rem, 4vw, 3.25rem);
+  --branch-w: clamp(12.5rem, 17vw, 15rem);   /* Platz links für die Abzweige */
+  position: relative; padding-left: calc(var(--branch-w) + var(--pad-l)); --prog: 0;
+}
 .path::before, .path::after {
-  content: ""; position: absolute; left: 0; top: .6rem; bottom: .6rem; width: 4px; border-radius: 4px; z-index: 0;
+  content: ""; position: absolute; left: var(--branch-w); top: .6rem; bottom: .6rem; width: 4px; border-radius: 4px; z-index: 0;
 }
 .path::before { background: rgba(142, 182, 155, .22); }
 .path::after {
@@ -348,9 +352,45 @@ ol, ul { list-style: none; }
 }
 .stop p { max-width: 34em; color: rgba(218, 241, 222, .85); }
 
+/* Abzweig: gestrichelte Nebenstation links an der Linie */
+.branch {
+  position: absolute; top: .1rem;
+  right: calc(100% + var(--pad-l) - 2px);
+  width: calc(var(--branch-w) - .4rem);
+  display: flex; align-items: flex-start;
+}
+.branch-card {
+  flex: 1 1 auto; min-width: 0;
+  padding: .65rem .85rem .75rem;
+  border-radius: 10px;
+  background: rgba(142, 182, 155, .12);
+  border: 1px dashed rgba(142, 182, 155, .55);
+}
+.branch-card time { display: block; font-size: .78rem; color: var(--c-5); }
+.branch-card h4 {
+  margin: .1rem 0 .3rem; font-family: var(--display); font-weight: 650;
+  font-size: 1rem; letter-spacing: -.01em; line-height: 1.15; color: var(--c-6);
+}
+.stop .branch-card p { margin: 0; max-width: none; font-size: .86rem; line-height: 1.35; color: rgba(218, 241, 222, .8); }
+.branch-link {
+  position: relative; flex: 0 0 2.4rem; height: 0; margin-top: 1rem;
+  border-top: 2px dashed var(--c-5);
+}
+.branch-link::after {
+  content: ""; position: absolute; right: -4px; top: -5px;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--c-5);
+}
+
 @media (max-width: 860px) {
   .journey { grid-template-columns: 1fr; }
   .journey-head { position: static; }
+}
+/* schmale Schirme: der Abzweig rutscht unter den Text */
+@media (max-width: 700px) {
+  .path { --branch-w: 0px; }
+  .branch { position: static; width: auto; margin-top: .9rem; display: block; }
+  .branch-link { display: none; }
+  .branch-card { border-left: 2px dashed var(--c-5); border-radius: 0 10px 10px 0; margin-left: .2rem; }
 }
 
 /* ==========================================================
@@ -481,7 +521,7 @@ svg.ico.line { fill: none; }
 .mail {
   display: inline-block; margin-top: 2.5rem; text-decoration: none;
   font-family: var(--display); font-weight: 600; letter-spacing: -.025em;
-  font-size: clamp(1.4rem, 4.4vw, 3.6rem);
+  font-size: clamp(1.2rem, 3.6vw, 2.9rem);
   padding: .5em 1.2em; border-radius: 10px;
   background: var(--c-5); color: var(--c-1);
   transition: background .3s var(--ease), transform .4s var(--ease);
@@ -504,6 +544,7 @@ svg.ico.line { fill: none; }
 }
 .foot a { text-decoration: none; }
 .foot a:hover { color: var(--c-6); }
+.foot-links { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; }
 
 /* ==========================================================
    Detail dialog
