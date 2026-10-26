@@ -393,7 +393,8 @@ ol, ul { list-style: none; }
 
 /* education: bottom left, next to the oldest stations */
 .journey { grid-template-rows: 1fr auto; }
-.journey-head { grid-column: 1; grid-row: 1; }
+/* the sticky heading may only travel inside this box, so it never slides over the education block */
+.journey-side { grid-column: 1; grid-row: 1; padding-bottom: 2rem; }
 .path { grid-column: 2; grid-row: 1 / 3; }
 .edu { grid-column: 1; grid-row: 2; align-self: end; max-width: 22rem; }
 .edu h3 { font-family: var(--display); font-weight: 650; font-size: 1.15rem; color: var(--c-5); margin-bottom: .8rem; }
@@ -408,7 +409,8 @@ ol, ul { list-style: none; }
 
 @media (max-width: 860px) {
   .journey { grid-template-columns: 1fr; }
-  .journey-head, .path, .edu { grid-column: 1; grid-row: auto; }
+  .journey-side, .path, .edu { grid-column: 1; grid-row: auto; }
+  .journey-side { padding-bottom: 0; }
   .edu { max-width: none; margin-top: 1rem; order: 3; }
   .journey-head { position: static; }
 }
