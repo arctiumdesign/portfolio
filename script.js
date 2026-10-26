@@ -183,6 +183,10 @@
   function update() {
     const vh = window.innerHeight;
 
+    // header gets a solid backing once content scrolls underneath it
+    const topBar = document.querySelector(".top");
+    if (topBar) topBar.classList.toggle("is-scrolled", window.scrollY > 8);
+
     // hero: open the colour fan
     if (hero) {
       const total = hero.offsetHeight - vh;

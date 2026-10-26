@@ -157,6 +157,16 @@ ol, ul { list-style: none; }
 
 /* phones: the section links move into a bar at the bottom, in thumb reach */
 @media (max-width: 760px) {
+  /* backing sits on a pseudo-element: a backdrop-filter on .top itself would trap the fixed bottom nav */
+  .top { padding-bottom: .75rem; }
+  .top::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: rgba(5, 31, 32, .86);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 rgba(142, 182, 155, .18);
+    opacity: 0; transition: opacity .3s var(--ease);
+  }
+  .top.is-scrolled::before { opacity: 1; }
   .brand-sub { display: none; }
   .nav {
     position: fixed; left: 50%; translate: -50% 0;
