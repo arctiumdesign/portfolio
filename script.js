@@ -75,7 +75,7 @@
   }
 
   /* ------------------------------------------------------------
-     Photo: appears when hovering the name (img/jk-bild.jpg).
+     Photo: appears when hovering the name (img/jk-bild.webp).
      Until the file exists, the initials are shown instead.
      ------------------------------------------------------------ */
   const brand = $(".brand");
@@ -332,7 +332,7 @@
 
   /* ------------------------------------------------------------
      Flipbook — the SuitePad brochure.
-     Pages: img/brochure/p-01.jpg … p-19.jpg
+     Pages: img/brochure/p-01.webp … p-19.webp
      Spreads follow the print layout: 1+2, 3+4, 5+6 … page 1 stays
      on the left, every sheet carries two pages (front and back).
      The page-turn sound is generated in the browser, so there is
@@ -404,7 +404,7 @@
   function hydrate(centre) {
     for (let n = centre - 2; n <= centre + 4; n++) {
       const im = pageImgs.get(n);
-      if (im && !im.getAttribute("src")) im.src = "img/brochure/p-" + String(n).padStart(2, "0") + ".jpg";
+      if (im && !im.getAttribute("src")) im.src = "img/brochure/p-" + String(n).padStart(2, "0") + ".webp";
     }
   }
 
@@ -523,7 +523,7 @@
       if (im) {
         im.style.opacity = "0";
         setTimeout(() => {
-          im.src = "img/brochure/p-" + String(page).padStart(2, "0") + ".jpg";
+          im.src = "img/brochure/p-" + String(page).padStart(2, "0") + ".webp";
           im.style.opacity = "1";
         }, 140);
       }
