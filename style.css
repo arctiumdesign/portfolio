@@ -337,7 +337,7 @@ ol, ul { list-style: none; }
   background: linear-gradient(var(--c-5), var(--c-6));
   transform-origin: top; transform: scaleY(var(--prog));
 }
-.stop { position: relative; z-index: 1; padding-bottom: clamp(2.5rem, 7vh, 4.5rem); opacity: .42; transition: opacity .5s var(--ease); }
+.stop { --stop-pad: clamp(2.5rem, 7vh, 4.5rem); position: relative; z-index: 1; padding-bottom: var(--stop-pad); opacity: .42; transition: opacity .5s var(--ease); }
 .stop:last-child { padding-bottom: 0; }
 .stop::before, .stop::after {
   content: ""; position: absolute; top: .6rem;
@@ -373,11 +373,12 @@ ol, ul { list-style: none; }
 .stop p { max-width: 34em; color: rgba(218, 241, 222, .85); }
 
 /* Abzweig: gestrichelte Nebenstation links an der Linie */
+/* branches hang off the lower end of their station, not next to its title */
 .branch {
-  position: absolute; top: .1rem;
+  position: absolute; bottom: var(--stop-pad);
   right: calc(100% + var(--pad-l) - 2px);
   width: calc(var(--branch-w) - .4rem);
-  display: flex; align-items: flex-start;
+  display: flex; align-items: flex-end;
 }
 .branch-card {
   flex: 1 1 auto; min-width: 0;
@@ -393,7 +394,7 @@ ol, ul { list-style: none; }
 }
 .stop .branch-card p { margin: 0; max-width: none; font-size: .86rem; line-height: 1.35; color: rgba(218, 241, 222, .8); }
 .branch-link {
-  position: relative; flex: 0 0 2.4rem; height: 0; margin-top: 1rem;
+  position: relative; flex: 0 0 2.4rem; height: 0; margin-bottom: 1.2rem;
   border-top: 2px dashed var(--c-5);
 }
 .branch-link::after {
