@@ -69,7 +69,7 @@ window.I18N = {
     "work.prev": "Previous work sample",
     "work.next": "Next work sample",
 
-    "c.cloning.name": "Cloning templates",
+    "c.cloning.name": "Demo installation",
     "c.cloning.meta": "2026 · SuitePad",
     "c.brochure.name": "SuitePad brochure",
     "c.brochure.meta": "2023 · A5 · flip through it",
@@ -87,8 +87,8 @@ window.I18N = {
     "c.vfl.meta": "2018 – 2019 · Sitesmedia",
 
     "p.cloning.when": "2026 · showcase installation",
-    "p.cloning.title": "Cloning templates",
-    "p.cloning.t1": "Built cloning templates to simplify and speed up the setup of new SuitePad installations.",
+    "p.cloning.title": "Demo installation",
+    "p.cloning.t1": "Built reusable design templates so that new SuitePad installations come together faster and more consistently.",
     "p.cloning.t2": "The showcase installation makes onboarding easier for clients: modern and UI/UX-friendly, running on the device itself.",
 
     "p.brochure.when": "2023 · A5 · 19 pages",
@@ -238,7 +238,7 @@ window.I18N = {
     "work.prev": "Vorherige Arbeitsprobe",
     "work.next": "Nächste Arbeitsprobe",
 
-    "c.cloning.name": "Cloning Templates",
+    "c.cloning.name": "Demo-Installation",
     "c.cloning.meta": "2026 · SuitePad",
     "c.brochure.name": "SuitePad-Broschüre",
     "c.brochure.meta": "2023 · A5 · zum Durchblättern",
@@ -256,8 +256,8 @@ window.I18N = {
     "c.vfl.meta": "2018 – 2019 · Sitesmedia",
 
     "p.cloning.when": "2026 · Vorzeige-Installation",
-    "p.cloning.title": "Cloning Templates",
-    "p.cloning.t1": "Erstellung von Cloning Templates zur Vereinfachung und Beschleunigung neuer SuitePad-Installationen.",
+    "p.cloning.title": "Demo-Installation",
+    "p.cloning.t1": "Aufbau wiederverwendbarer Design-Vorlagen, mit denen neue SuitePad-Installationen schneller und einheitlicher entstehen.",
     "p.cloning.t2": "Die Vorzeige-Installation macht Kunden das Onboarding einfacher: modern und UI/UX-freundlich, direkt auf dem Gerät.",
 
     "p.brochure.when": "2023 · A5 · 19 Seiten",
