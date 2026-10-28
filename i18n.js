@@ -26,7 +26,7 @@ window.I18N = {
     "fan.3": "Hotel interfaces",
     "fan.4": "Web & CSS",
     "fan.5": "Workflow automation",
-    "fan.6": "Textile & event graphics",
+    "fan.6": "Trade show graphics",
 
     "num.label": "In numbers",
     "num.1": "years in design, from print to digital",
@@ -193,7 +193,7 @@ window.I18N = {
     "fan.3": "Hotel-Oberflächen",
     "fan.4": "Web & CSS",
     "fan.5": "Workflow-Automatisierung",
-    "fan.6": "Textil & Eventgrafik",
+    "fan.6": "Messegrafik",
 
     "num.label": "In Zahlen",
     "num.1": "Jahre im Design, von Print bis digital",
